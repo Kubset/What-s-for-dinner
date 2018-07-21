@@ -1,0 +1,5 @@
+DROP TABLE main_dish CASCADE;
+DROP TABLE soup CASCADE;
+DROP TABLE components CASCADE;
+DROP TABLE dish_components CASCADE;
+DROP TABLE soup_components CASCADE;
