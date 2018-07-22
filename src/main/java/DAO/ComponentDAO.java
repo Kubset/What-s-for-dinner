@@ -13,9 +13,6 @@ public class ComponentDAO extends AbstractDAO<Component> {
         ADD_QUERY = "INSERT INTO components (name) VALUES (?);";
         EDIT_QUERY = "UPDATE components SET name=? WHERE component_id=?;";
         DELETE_QUERY = "DELETE FROM components WHERE component_id=?;";
-        SELECT_QUERY = "SELECT * FROM components WHERE component_id=?;";
-        SELECT_ALL = "SELECT * FROM components;";
-        EDIT_QUERY_KEY_INDEX = 2;
     }
 
     @Override
