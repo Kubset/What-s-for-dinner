@@ -2,33 +2,38 @@ package DAO;
 
 import Model.Component;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
-public class ComponentDAO implements DAO<Component> {
+public class ComponentDAO extends AbstractDAO<Component> {
 
-
-    @Override
-    public void add(Component Entity) {
-
+    public ComponentDAO() {
+        ADD_QUERY = "INSERT INTO components (name) VALUES (?);";
+        EDIT_QUERY = "UPDATE components SET name=? WHERE component_id=?;";
+        DELETE_QUERY = "DELETE FROM components WHERE component_id=?;";
+        SELECT_QUERY = "SELECT * FROM components WHERE component_id=?;";
+        SELECT_ALL = "SELECT * FROM components;";
+        EDIT_QUERY_KEY_INDEX = 2;
     }
 
     @Override
-    public void update(Component Entity) {
-
+    void fillStatementToAddData(Component entity) throws SQLException {
+        super.preparedStatement.setString(1, entity.getName());
     }
+
 
     @Override
-    public void delete(Component Entity) {
-
+    void fillStatementToEditData(Component entity) throws SQLException {
+        super.preparedStatement.setString(1, entity.getName());
+        super.preparedStatement.setInt(2,entity.getId());
     }
 
-    @Override
-    public Component get(int ID) {
-        return null;
-    }
 
     @Override
-    public List<Component> get() {
-        return null;
+    void fillStatementToDeleteData(Component entity) throws SQLException {
+        super.preparedStatement.setInt(1, entity.getId());
     }
+
 }
