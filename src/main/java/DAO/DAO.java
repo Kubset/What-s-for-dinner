@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface DAO<E> {
 
+
     public void add(E Entity);
     public void update(E Entity);
     public void delete(E Entity);
