@@ -1,5 +1,6 @@
 package DAO;
 
+import Mappers.ComponentMapper;
 import Model.Component;
 
 import java.sql.Connection;
@@ -13,6 +14,7 @@ public class ComponentDAO extends AbstractDAO<Component> {
         ADD_QUERY = "INSERT INTO components (name) VALUES (?);";
         EDIT_QUERY = "UPDATE components SET name=? WHERE component_id=?;";
         DELETE_QUERY = "DELETE FROM components WHERE component_id=?;";
+        super.mapper = new ComponentMapper();
     }
 
     @Override
