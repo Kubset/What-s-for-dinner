@@ -1,6 +1,7 @@
 package DAO;
 
 import Criteria.SqlCriteria;
+import Mappers.Mapper;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ public abstract class AbstractDAO<E> implements DAO<E> {
     String SELECT_QUERY;
     String SELECT_ALL;
     int EDIT_QUERY_KEY_INDEX;
+    Mapper<E> mapper;
 
     Connection dbConnection;
     PreparedStatement preparedStatement;
@@ -43,7 +45,7 @@ public abstract class AbstractDAO<E> implements DAO<E> {
     public void update(E entity) {
         try {
             dbConnection = ConnectionProvider.getConnection();
-            preparedStatement = dbConnection.prepareStatement(ADD_QUERY);
+            preparedStatement = dbConnection.prepareStatement(EDIT_QUERY);
             fillStatementToEditData(entity);
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
@@ -55,10 +57,11 @@ public abstract class AbstractDAO<E> implements DAO<E> {
     public void delete(E entity) {
         try {
             dbConnection = ConnectionProvider.getConnection();
-            preparedStatement = dbConnection.prepareStatement(ADD_QUERY);
-            fillStatementToEditData(entity);
+            preparedStatement = dbConnection.prepareStatement(DELETE_QUERY);
+            fillStatementToDeleteData(entity);
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
+            e.printStackTrace();
             System.err.println("Can't delete object from the database");
         }
     }
@@ -70,8 +73,7 @@ public abstract class AbstractDAO<E> implements DAO<E> {
         try {
             ResultSet resultSet = sqlCriteria.toPreparedStatement().executeQuery();
             while (resultSet.next()) {
-                //TODO: mapper shoup map resultSet to object
-                System.out.println("object from database");
+                entities.add(mapper.map(resultSet));
             }
             return entities;
         } catch (SQLException e) {
