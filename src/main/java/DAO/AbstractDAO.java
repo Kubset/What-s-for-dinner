@@ -1,9 +1,13 @@
 package DAO;
 
+import Criteria.SqlCriteria;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractDAO<E> implements DAO<E> {
@@ -60,12 +64,19 @@ public abstract class AbstractDAO<E> implements DAO<E> {
     }
 
     @Override
-    public E get(int ID) {
-        return null;
-    }
+    public List<E> get(SqlCriteria sqlCriteria) {
+        List<E> entities = new ArrayList<>();
 
-    @Override
-    public List<E> get() {
-        return null;
+        try {
+            ResultSet resultSet = sqlCriteria.toPreparedStatement().executeQuery();
+            while (resultSet.next()) {
+                //TODO: mapper shoup map resultSet to object
+                System.out.println("object from database");
+            }
+            return entities;
+        } catch (SQLException e) {
+            System.err.println("Cannot perform this query");
+        }
+        return entities;
     }
 }
