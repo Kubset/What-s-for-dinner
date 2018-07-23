@@ -3,6 +3,26 @@ package Model;
 public class Soup {
     private String name;
     private int favourite;
+    private int id;
+
+    public Soup(String name, int favourite) {
+        this.name = name;
+        this.favourite = favourite;
+    }
+
+    public Soup(int id, String name, int favourite) {
+        this.id = id;
+        this.favourite = favourite;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
