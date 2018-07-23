@@ -39,4 +39,14 @@ public class MainDish {
     public void setFavourite(int favourite) {
         this.favourite = favourite;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        MainDish md = (MainDish) obj;
+        if(this.name.equals(md.name) && this.favourite == md.favourite) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

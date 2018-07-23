@@ -1,5 +1,6 @@
 package DAO;
 
+import Mappers.SoupMapper;
 import Model.Soup;
 
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ public class SoupDAO extends AbstractDAO<Soup> {
         ADD_QUERY = "INSERT INTO soup (name, favourite) VALUES (?, ?);";
         EDIT_QUERY = "UPDATE soup SET name=?, favourite=? WHERE soup_id=?;";
         DELETE_QUERY = "DELETE FROM soup WHERE soup_id=?;";
+        super.mapper = new SoupMapper();
     }
 
     @Override

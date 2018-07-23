@@ -75,7 +75,6 @@ public abstract class AbstractDAO<E> implements DAO<E> {
             while (resultSet.next()) {
                 entities.add(mapper.map(resultSet));
             }
-            return entities;
         } catch (SQLException e) {
             System.err.println("Cannot perform this query");
         }
