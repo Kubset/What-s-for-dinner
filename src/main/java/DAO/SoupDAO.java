@@ -15,16 +15,23 @@ public class SoupDAO extends AbstractDAO<Soup> {
 
     @Override
     void fillStatementToAddData(Soup entity) throws SQLException {
+        super.preparedStatement.setString(1, entity.getName());
+        super.preparedStatement.setInt(2, entity.getFavourite());
     }
 
 
     @Override
     void fillStatementToEditData(Soup entity) throws SQLException {
+        super.preparedStatement.setString(1, entity.getName());
+        super.preparedStatement.setInt(2, entity.getFavourite());
+        super.preparedStatement.setInt(3,entity.getId());
     }
 
 
     @Override
     void fillStatementToDeleteData(Soup entity) throws SQLException {
+        super.preparedStatement.setInt(1, entity.getId());
     }
+
 }
 
