@@ -22,20 +22,6 @@ class ComponentDAOTest {
     private static List<Component> componentsAfter;
     private static List<Component> exampleComponents = new ArrayList<>();
 
-    @BeforeEach
-    public void initializeList() {
-//       componentsBefore = dao.get(allComponents);
-    }
-
-    @AfterEach
-    public void makeRollback() {
-
-
-//        exampleComponents = null;
-//        componentsAfter = null;
-//        componentsBefore = null;
-    }
-
     @DisplayName("Add multiple elements to database")
     @Test
     public void addToDatabaseTest() {
