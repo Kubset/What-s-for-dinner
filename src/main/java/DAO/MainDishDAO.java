@@ -2,32 +2,29 @@ package DAO;
 
 import Model.MainDish;
 
+import java.sql.SQLException;
 import java.util.List;
 
-public class MainDishDAO implements DAO<MainDish> {
+public class MainDishDAO extends AbstractDAO<MainDish> {
 
-    @Override
-    public void add(MainDish Entity) {
-
+    public MainDishDAO() {
+        ADD_QUERY = "INSERT INTO main_dish (name, favourite) VALUES (?, ?);";
+        EDIT_QUERY = "UPDATE main_dish SET name=?, like=? WHERE dish_id=?;";
+        DELETE_QUERY = "DELETE FROM main_dish WHERE dish_id=?;";
     }
 
     @Override
-    public void update(MainDish Entity) {
-
+    void fillStatementToAddData(MainDish entity) throws SQLException {
     }
+
 
     @Override
-    public void delete(MainDish Entity) {
-
+    void fillStatementToEditData(MainDish entity) throws SQLException {
     }
 
-    @Override
-    public MainDish get(int ID) {
-        return null;
-    }
 
     @Override
-    public List<MainDish> get() {
-        return null;
+    void fillStatementToDeleteData(MainDish entity) throws SQLException {
     }
+
 }
