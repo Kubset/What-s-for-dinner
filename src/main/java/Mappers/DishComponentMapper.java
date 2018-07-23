@@ -1,5 +1,7 @@
 package Mappers;
 
+import Model.DishComponent;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

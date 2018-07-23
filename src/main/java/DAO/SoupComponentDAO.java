@@ -1,5 +1,8 @@
 package DAO;
 
+import Mappers.SoupComponentMapper;
+import Model.SoupComponent;
+
 import java.sql.SQLException;
 
 public class SoupComponentDAO extends AbstractDAO<SoupComponent>{

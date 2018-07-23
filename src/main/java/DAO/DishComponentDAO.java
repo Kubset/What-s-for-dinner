@@ -1,5 +1,8 @@
 package DAO;
 
+import Mappers.DishComponentMapper;
+import Model.DishComponent;
+
 import java.sql.SQLException;
 
 public class DishComponentDAO extends AbstractDAO<DishComponent>{

@@ -1,5 +1,7 @@
 package Mappers;
 
+import Model.SoupComponent;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
