@@ -1,5 +1,6 @@
 package DAO;
 
+import Mappers.MainDishMapper;
 import Model.MainDish;
 import sun.applet.Main;
 
@@ -10,8 +11,9 @@ public class MainDishDAO extends AbstractDAO<MainDish> {
 
     public MainDishDAO() {
         ADD_QUERY = "INSERT INTO main_dish (name, favourite) VALUES (?, ?);";
-        EDIT_QUERY = "UPDATE main_dish SET name=?, like=? WHERE dish_id=?;";
+        EDIT_QUERY = "UPDATE main_dish SET name=?, favourite=? WHERE dish_id=?;";
         DELETE_QUERY = "DELETE FROM main_dish WHERE dish_id=?;";
+        super.mapper = new MainDishMapper();
     }
 
     @Override
