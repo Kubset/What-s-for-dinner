@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class SoupMapper implements Mapper<Soup> {
 
     public Soup map(ResultSet resultSet) throws SQLException {
-            int id = resultSet.getInt("component_id");
+            int id = resultSet.getInt("soup_id");
             int favourite = resultSet.getInt("favourite");
             String name = resultSet.getString("name");
 
