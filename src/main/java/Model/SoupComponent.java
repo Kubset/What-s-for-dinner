@@ -1,24 +1,30 @@
 package Model;
 
 public class SoupComponent {
-    private int SoupId;
-    private int ComponentId;
+    private int soupId;
+    private int componentId;
     private int id;
 
+    public SoupComponent(int id, int componentId, int soupId) {
+        this.id = id;
+        this.componentId = componentId;
+        this.soupId = soupId;
+    }
+
     public int getSoupId() {
-        return SoupId;
+        return soupId;
     }
 
     public void setSoupId(int soupId) {
-        SoupId = soupId;
+        soupId = soupId;
     }
 
     public int getComponentId() {
-        return ComponentId;
+        return componentId;
     }
 
     public void setComponentId(int componentId) {
-        ComponentId = componentId;
+        componentId = componentId;
     }
 
     public int getId() {
