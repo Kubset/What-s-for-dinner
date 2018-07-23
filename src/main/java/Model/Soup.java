@@ -39,4 +39,14 @@ public class Soup {
     public void setFavourite(int favourite) {
         this.favourite = favourite;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Soup s = (Soup) obj;
+        if(this.name.equals(s.name) && this.favourite == s.favourite) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
