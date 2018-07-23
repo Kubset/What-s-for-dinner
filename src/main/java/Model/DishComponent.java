@@ -5,6 +5,12 @@ public class DishComponent {
     private int componentId;
     private int id;
 
+    public DishComponent(int id, int componentId, int dishId) {
+        this.id = id;
+        this.componentId = componentId;
+        this.dishId = dishId;
+    }
+
     public int getDishId() {
         return dishId;
     }
