@@ -28,6 +28,18 @@ public class MainDish {
         this.favourite = favourite;
     }
 
+    //TODO: delete after tests refactor
+    public MainDish(int id, String name, int favourite) {
+        this(id, name);
+        this.favourite = favourite;
+    }
+
+    //TODO: delete after tests refactor
+    public MainDish(String name, int favourite) {
+        this(name);
+        this.favourite = favourite;
+    }
+
     public List<Component> getComponents() {
         return components;
     }
