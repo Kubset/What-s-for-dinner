@@ -1,10 +1,13 @@
 function addNewComponent() {
+    var parser = new DOMParser();
     var xhr= new XMLHttpRequest();
     xhr.open('GET', '/assets/html/newComponent.html', true);
     xhr.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return; // or whatever error handling you want
-        document.getElementById('component-rows').innerHTML += this.responseText;
+        var node = parser.parseFromString(this.responseText, "text/html");
+        node = node.getElementsByClassName("form-group")[0];
+        document.getElementById('component-rows').appendChild(node);
     };
     xhr.send();
 }
