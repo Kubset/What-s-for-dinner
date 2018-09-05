@@ -27,6 +27,17 @@ public class Soup {
         this(id, name, components);
         this.favourite = favourite;
     }
+    //TODO: delete after tests refactor
+    public Soup(int id, String name, int favourite) {
+        this(id, name);
+        this.favourite = favourite;
+    }
+
+    //TODO: delete after tests refactor
+    public Soup(String name, int favourite) {
+        this(name);
+        this.favourite = favourite;
+    }
 
     public List<Component> getComponents() {
         return components;
