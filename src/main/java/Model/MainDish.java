@@ -1,19 +1,39 @@
 package Model;
 
+import java.util.List;
+
 public class MainDish {
     private String name;
     private int favourite;
     private int id;
+    private List<Component> components;
 
-    public MainDish(String name, int favourite) {
+    public MainDish(String name) {
         this.name = name;
+        this.favourite = -1;
+    }
+
+    public MainDish(int id, String name) {
+        this(name);
+        this.id = id;
+    }
+
+    public MainDish(int id, String name, List<Component> components) {
+        this(id, name);
+        this.components = components;
+    }
+
+    public MainDish(int id, String name, List<Component> components, int favourite) {
+        this(id, name, components);
         this.favourite = favourite;
     }
 
-    public MainDish(int id, String name, int favourite) {
-        this.id = id;
-        this.favourite = favourite;
-        this.name = name;
+    public List<Component> getComponents() {
+        return components;
+    }
+
+    public void setComponents(List<Component> components) {
+        this.components = components;
     }
 
     public int getId() {
