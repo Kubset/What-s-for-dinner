@@ -25,14 +25,18 @@ function addMainContent(path) {
 
 function addSuggestSoups() {
     var xhr= new XMLHttpRequest();
-    xhr.open('GET', "api/component", true);
+    xhr.open('GET', "/api/component", true);
     xhr.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return; // or whatever error handling you want
-        // document.getElementById('main-content').innerHTML += this.responseText;
         var json = JSON.parse(this.responseText);
-        console.log(json)
-        // document.getElementById('components').appendChild(node)
+        var node;
+        json.forEach(element => {
+            node = document.createElement("option")
+            node.setAttribute('value', element.name);
+            document.getElementById('components').appendChild(node);
+            
+        });
     };
     xhr.send();
 }
