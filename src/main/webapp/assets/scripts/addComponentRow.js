@@ -23,6 +23,24 @@ function addMainContent(path) {
     xhr.send();
 }
 
+function addSuggestSoups() {
+    var xhr= new XMLHttpRequest();
+    xhr.open('GET', "api/component", true);
+    xhr.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        // document.getElementById('main-content').innerHTML += this.responseText;
+        var json = JSON.parse(this.responseText);
+        console.log(json)
+        // document.getElementById('components').appendChild(node)
+    };
+    xhr.send();
+}
+
+function addSuggestDishes() {
+
+}
+
 
 window.onload = function() {
     var path = window.location.pathname
@@ -30,6 +48,7 @@ window.onload = function() {
     switch(path) {
         case '/soup/add':
             addMainContent("/assets/html/addSoupContent.html")
+            addSuggestSoups();
             break;
 
         case '/dish/add':
@@ -38,3 +57,5 @@ window.onload = function() {
 
     }
 }
+
+
