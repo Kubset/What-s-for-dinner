@@ -15,6 +15,10 @@
     <servlet-name>Dish</servlet-name>
     <servlet-class>servlets.DishServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Component</servlet-name>
+    <servlet-class>servlets.ComponentServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Main</servlet-name>
@@ -22,11 +26,15 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Soup</servlet-name>
-    <url-pattern>/soup/*</url-pattern>
+    <url-pattern>/soup/add</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Dish</servlet-name>
-    <url-pattern>/dish/*</url-pattern>
+    <url-pattern>/dish/add</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Component</servlet-name>
+    <url-pattern>api/component/*</url-pattern>
   </servlet-mapping>
 
 
