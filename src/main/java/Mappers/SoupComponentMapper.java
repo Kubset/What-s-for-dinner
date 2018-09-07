@@ -1,12 +1,13 @@
 package Mappers;
 
 import Model.SoupComponent;
+import com.google.gson.Gson;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SoupComponentMapper implements Mapper<SoupComponent>{
+public class SoupComponentMapper extends AbstractMapper<SoupComponent>{
 
     @Override
     public SoupComponent map(ResultSet resultSet) throws SQLException {
@@ -15,17 +16,5 @@ public class SoupComponentMapper implements Mapper<SoupComponent>{
             int DishId = resultSet.getInt("soup_id");
 
             return new SoupComponent(id, componentId, DishId);
-    }
-
-    @Override
-    public String mapToJson(List<SoupComponent> entities) {
-        //TODO: not implemented yet
-        return null;
-    }
-
-    @Override
-    public String mapToJson(SoupComponent entity) {
-        //TODO: not implemented yet
-        return null;
     }
 }

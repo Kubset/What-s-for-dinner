@@ -1,12 +1,13 @@
 package Mappers;
 
 import Model.MainDish;
+import com.google.gson.Gson;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MainDishMapper implements Mapper<MainDish> {
+public class MainDishMapper extends AbstractMapper<MainDish> {
 
     @Override
     public MainDish map(ResultSet resultSet) throws SQLException {
@@ -15,17 +16,5 @@ public class MainDishMapper implements Mapper<MainDish> {
             String name = resultSet.getString("name");
 
             return new MainDish(id, name, favourite);
-    }
-
-    @Override
-    public String mapToJson(List<MainDish> entities) {
-        //TODO: not implemented yet
-        return null;
-    }
-
-    @Override
-    public String mapToJson(MainDish entity) {
-        //TODO: not implemented yet
-        return null;
     }
 }
