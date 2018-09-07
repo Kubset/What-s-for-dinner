@@ -1,0 +1,44 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <servlet>
+    <servlet-name>Main</servlet-name>
+    <servlet-class>servlets.MainServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Soup</servlet-name>
+    <servlet-class>servlets.SoupServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Dish</servlet-name>
+    <servlet-class>servlets.DishServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Component</servlet-name>
+    <servlet-class>servlets.ComponentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Main</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Soup</servlet-name>
+    <url-pattern>/soup/add</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Dish</servlet-name>
+    <url-pattern>/dish/add</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Component</servlet-name>
+    <url-pattern>api/component/*</url-pattern>
+  </servlet-mapping>
+
+
+  <display-name>Archetype Created Web Application</display-name>
+</web-app>
+
+
