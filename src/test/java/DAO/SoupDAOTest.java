@@ -28,7 +28,7 @@ class SoupDAOTest {
 
         String[] names = {"example1", "example2", "example3"};
         int[] favourites = {1,2,3};
-        exampleSoups = prepareExampleSoups(names, favourites);
+        exampleSoups = prepareExampleSoups(names);
         addExampleSoupsToDatabase();
         soupsAfter = dao.get(allSoups);
 
@@ -46,7 +46,7 @@ class SoupDAOTest {
 
         String[] names = {"example1", "example2", "example3"};
         int[] favourites = {4,7,4};
-        exampleSoups = prepareExampleSoups(names, favourites);
+        exampleSoups = prepareExampleSoups(names);
         addExampleSoupsToDatabase();
 
         soupsBefore = dao.get(allSoups);
@@ -66,22 +66,24 @@ class SoupDAOTest {
     public void setNameRecordInDatabase() {
         soupsBefore = dao.get(allSoups);
         String[] oldNames = {"example1", "example2", "example3"};
-        int[] oldFavourites = {5,5,5};
-        exampleSoups = prepareExampleSoups(oldNames, oldFavourites);
+        exampleSoups = prepareExampleSoups(oldNames);
         addExampleSoupsToDatabase();
-        setDishDatabase("example1", "ex1");
-        setDishDatabase("example2", "ex2");
-        setDishDatabase("example3", "ex3");
-        setDishDatabase("ex1", 1);
-        setDishDatabase("ex2", 2);
-        setDishDatabase("ex3", 3);
+        setSoupDatabase("example1", "ex1");
+        setSoupDatabase("example2", "ex2");
+        setSoupDatabase("example3", "ex3");
+        setSoupDatabase("ex1", 1);
+        setSoupDatabase("ex2", 2);
+        setSoupDatabase("ex3", 3);
 
         soupsAfter = dao.get(allSoups);
 
         String[] newNames = {"ex1", "ex2", "ex3"};
         int[] newFavourites = {1,2,3};
+
+        exampleSoups = prepareExampleSoups(newNames,newFavourites);
+
         soupsAfter.removeAll(soupsBefore);
-        exampleSoups = prepareExampleSoups(newNames, newFavourites);
+
 
         deleteExampleSoupsFromDatabase();
 
@@ -90,10 +92,22 @@ class SoupDAOTest {
         exampleSoups.clear();
     }
 
-    private List<Soup> prepareExampleSoups(String[] names, int[] favourites) {
+    private List<Soup> prepareExampleSoups(String[] names) {
         List<Soup> Soups = new ArrayList<>();
         for(int i=0; i<names.length; i++) {
-            Soups.add(new Soup(names[i], favourites[i]));
+            Soups.add(new Soup(names[i]));
+        }
+        return Soups;
+    }
+
+    private List<Soup> prepareExampleSoups(String[] names, int[] favourites) {
+        List<Soup> Soups = new ArrayList<>();
+        Soup soup;
+        for(int i=0; i<names.length; i++) {
+            soup = new Soup(names[i]);
+            soup.setFavourite(favourites[i]);
+
+            Soups.add(soup);
         }
         return Soups;
     }
@@ -111,13 +125,13 @@ class SoupDAOTest {
         }
     }
 
-    private void setDishDatabase(String oldName, String newName) {
+    private void setSoupDatabase(String oldName, String newName) {
         Soup c = dao.get(new SoupsByName(oldName)).get(0);
         c.setName(newName);
         dao.update(c);
     }
 
-    private void setDishDatabase(String name, int newFavourite) {
+    private void setSoupDatabase(String name, int newFavourite) {
         Soup c = dao.get(new SoupsByName(name)).get(0);
         c.setFavourite(newFavourite);
         dao.update(c);
