@@ -1,12 +1,13 @@
 package Mappers;
 
 import Model.DishComponent;
+import com.google.gson.Gson;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DishComponentMapper implements Mapper<DishComponent> {
+public class DishComponentMapper extends AbstractMapper<DishComponent> {
 
     @Override
     public DishComponent map(ResultSet resultSet) throws SQLException {
@@ -15,17 +16,5 @@ public class DishComponentMapper implements Mapper<DishComponent> {
             int DishId = resultSet.getInt("dish_id");
 
             return new DishComponent(id, componentId, DishId);
-    }
-
-    @Override
-    public String mapToJson(List<DishComponent> entities) {
-        //TODO: not implemented yet
-        return null;
-    }
-
-    @Override
-    public String mapToJson(DishComponent entity) {
-        //TODO: not implemented yet
-        return null;
     }
 }
