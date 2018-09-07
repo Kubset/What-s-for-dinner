@@ -26,8 +26,7 @@ class MainDishDAOTest {
         dishesBefore = dao.get(allDishes);
 
         String[] names = {"example1", "example2", "example3"};
-        int[] favourites = {1,2,3};
-        exampleDishes = prepareExampleDishes(names, favourites);
+        exampleDishes = prepareExampleDishes(names);
         addExampleDishesToDatabase();
         dishesAfter = dao.get(allDishes);
 
@@ -44,8 +43,7 @@ class MainDishDAOTest {
     public void removeFromDatabaseTest() {
 
         String[] names = {"example1", "example2", "example3"};
-        int[] favourites = {4,7,4};
-        exampleDishes = prepareExampleDishes(names, favourites);
+        exampleDishes = prepareExampleDishes(names);
         addExampleDishesToDatabase();
 
         dishesBefore = dao.get(allDishes);
@@ -64,22 +62,17 @@ class MainDishDAOTest {
     public void setNameRecordInDatabase() {
         dishesBefore = dao.get(allDishes);
         String[] oldNames = {"example1", "example2", "example3"};
-        int[] oldFavourites = {5,5,5};
-        exampleDishes = prepareExampleDishes(oldNames, oldFavourites);
+        exampleDishes = prepareExampleDishes(oldNames);
         addExampleDishesToDatabase();
         setDishDatabase("example1", "ex1");
         setDishDatabase("example2", "ex2");
         setDishDatabase("example3", "ex3");
-        setDishDatabase("ex1", 1);
-        setDishDatabase("ex2", 2);
-        setDishDatabase("ex3", 3);
 
         dishesAfter = dao.get(allDishes);
 
         String[] newNames = {"ex1", "ex2", "ex3"};
-        int[] newFavourites = {1,2,3};
         dishesAfter.removeAll(dishesBefore);
-        exampleDishes = prepareExampleDishes(newNames, newFavourites);
+        exampleDishes = prepareExampleDishes(newNames);
 
         deleteExampleDishesFromDatabase();
 
@@ -88,10 +81,10 @@ class MainDishDAOTest {
         exampleDishes.clear();
     }
 
-    private List<MainDish> prepareExampleDishes(String[] names, int[] favourites) {
+    private List<MainDish> prepareExampleDishes(String[] names) {
         List<MainDish> dishes = new ArrayList<>();
         for(int i=0; i<names.length; i++) {
-            dishes.add(new MainDish(names[i], favourites[i]));
+            dishes.add(new MainDish(names[i]));
         }
         return dishes;
     }
@@ -115,11 +108,6 @@ class MainDishDAOTest {
         dao.update(c);
     }
 
-    private void setDishDatabase(String name, int newFavourite) {
-        MainDish c = dao.get(new DishesByName(name)).get(0);
-        c.setFavourite(newFavourite);
-        dao.update(c);
-    }
 
 
 }
