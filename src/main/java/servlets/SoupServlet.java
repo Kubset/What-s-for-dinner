@@ -40,7 +40,22 @@ public class SoupServlet extends HttpServlet {
 
         //TODO: have to implement services !!
 
+<<<<<<< Updated upstream
         resp.getWriter().write("saved");
+=======
+
+//        TODO: redirect
+//        resp.getWriter().write("saved");
+//        resp.getWriter().write("ajdshjhfjdhfhdj");
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/dashBoard.html");
+        if (dispatcher != null) dispatcher.forward(req, resp);
+//
+//        resp.setStatus(HttpServletResponse.SC_FOUND);//302
+//        resp.setHeader("Location", "/");
+
+//        resp.getWriter().write("assasasassaddafaf");
+>>>>>>> Stashed changes
 
 
     }
