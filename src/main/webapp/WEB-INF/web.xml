@@ -16,8 +16,12 @@
     <servlet-class>servlets.DishServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>Component</servlet-name>
-    <servlet-class>servlets.ComponentServlet</servlet-class>
+    <servlet-name>apiComponent</servlet-name>
+    <servlet-class>servlets.ApiComponentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>apiSoup</servlet-name>
+    <servlet-class>servlets.ApiSoupServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -33,8 +37,12 @@
     <url-pattern>/dish/add</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>Component</servlet-name>
+    <servlet-name>apiComponent</servlet-name>
     <url-pattern>api/component/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>apiSoup</servlet-name>
+    <url-pattern>api/soup/*</url-pattern>
   </servlet-mapping>
 
 
