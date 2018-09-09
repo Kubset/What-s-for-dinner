@@ -1,3 +1,13 @@
+
+Array.prototype.contains = function ( needle ) {
+   for (i in this) {
+       console.log(i)
+       if (this[i] == needle) return true;
+   }
+   return false;
+}
+
+
 function addNewComponent() {
     var parser = new DOMParser();
     var xhr= new XMLHttpRequest();
@@ -12,6 +22,7 @@ function addNewComponent() {
     xhr.send();
 }
 
+
 function addMainContent(path) {
     var xhr= new XMLHttpRequest();
     xhr.open('GET', path, true);
@@ -22,6 +33,7 @@ function addMainContent(path) {
     };
     xhr.send();
 }
+
 
 function addSuggestComponents() {
     var xhr= new XMLHttpRequest();
