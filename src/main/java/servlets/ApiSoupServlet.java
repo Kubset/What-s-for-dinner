@@ -1,13 +1,16 @@
 package servlets;
 
 import Criteria.AllComponents;
+import Criteria.AllSoups;
 import Criteria.SqlCriteria;
 import DAO.ComponentDAO;
+import DAO.SoupDAO;
 import Mappers.ComponentMapper;
 import Mappers.Mapper;
+import Mappers.SoupMapper;
 import Model.Component;
+import Model.Soup;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ComponentServlet extends HttpServlet {
+public class ApiSoupServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,12 +28,12 @@ public class ComponentServlet extends HttpServlet {
             //get specified id of component and return as json
             resp.getWriter().write(URL[3]);
         } else {
-            ComponentDAO componentDAO = new ComponentDAO();
-            SqlCriteria criteria = new AllComponents();
-            Mapper<Component> mapper = new ComponentMapper();
+            SoupDAO soupDAO = new SoupDAO();
+            SqlCriteria criteria = new AllSoups();
+            Mapper<Soup> mapper = new SoupMapper();
 
-            List<Component> components = componentDAO.get(criteria);
-            String json = mapper.mapToJson(components);
+            List<Soup> soups = soupDAO.get(criteria);
+            String json = mapper.mapToJson(soups);
 
             resp.getWriter().write(json);
         }
