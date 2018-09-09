@@ -4,6 +4,7 @@ import DAO.ComponentDAO;
 import Model.Component;
 import Model.Soup;
 import Model.SoupComponent;
+import services.SoupManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,27 +36,19 @@ public class SoupServlet extends HttpServlet {
         String[] unit = req.getParameterValues("unit");
 
         List<Component> components = new ArrayList<>();
-        List<SoupComponent> soupComponents = new ArrayList<>();
+        for(int i=0; i<componentNames.length; i++) {
+           components.add(new Component(componentNames[i]));
+        }
+
         Soup soup = new Soup(soupName);
+        soup.setComponents(components);
 
-        //TODO: have to implement services !!
+        SoupManager soupManager = new SoupManager();
+        soupManager.create(soup);
 
-<<<<<<< Updated upstream
+
+        //TODO: redirect
         resp.getWriter().write("saved");
-=======
-
-//        TODO: redirect
-//        resp.getWriter().write("saved");
-//        resp.getWriter().write("ajdshjhfjdhfhdj");
-
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/dashBoard.html");
-        if (dispatcher != null) dispatcher.forward(req, resp);
-//
-//        resp.setStatus(HttpServletResponse.SC_FOUND);//302
-//        resp.setHeader("Location", "/");
-
-//        resp.getWriter().write("assasasassaddafaf");
->>>>>>> Stashed changes
 
 
     }

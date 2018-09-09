@@ -5,10 +5,14 @@ public class SoupComponent {
     private int componentId;
     private int id;
 
-    public SoupComponent(int id, int componentId, int soupId) {
-        this.id = id;
-        this.componentId = componentId;
+    public SoupComponent(int componentId, int soupId) {
         this.soupId = soupId;
+        this.componentId = componentId;
+    }
+
+    public SoupComponent(int id, int componentId, int soupId) {
+        this(componentId,soupId);
+        this.id = id;
     }
 
     public int getSoupId() {
