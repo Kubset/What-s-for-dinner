@@ -73,6 +73,17 @@ function getSoupsFromDatabase() {
 }
 
 
+function addAlertMessage(message, colour) {
+    var node = document.createElement("div");
+    node.setAttribute("class", "alert " + colour);
+    node.setAttribute("role", "alert");
+    node.innerHTML = message;
+
+    document.getElementById('alert-div').innerHTML = node.outerHTML;
+
+}
+
+
 
 
 
