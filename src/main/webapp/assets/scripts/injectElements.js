@@ -3,7 +3,7 @@
 function addNewComponent() {
     var parser = new DOMParser();
     var xhr= new XMLHttpRequest();
-    xhr.open('GET', '/assets/html/newComponent.html', true);
+    xhr.open('GET', '/assets/html/newComponent.html', false);
     xhr.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return;
@@ -12,6 +12,7 @@ function addNewComponent() {
         document.getElementById('component-rows').appendChild(node);
     };
     xhr.send();
+    addUnits();
 }
 
 
@@ -46,6 +47,26 @@ function addSuggestComponents() {
     xhr.send();
 }
 
+function addUnits() {
+    //TODO: not tested yet
+    var injectPlace = document.getElementsByClassName("select-unit")
+    var xhr= new XMLHttpRequest();
+    xhr.open('GET', "/api/unit", true);
+    xhr.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return; // or whatever error handling you want
+        var json = JSON.parse(this.responseText);
+        var node;
+        json.forEach(element => {
+            node = document.createElement("option")
+            node.setAttribute('value', element.name);
+            node.innerHTML = element.name
+            injectPlace[injectPlace.length-1].appendChild(node);
+            
+        });
+    };
+    xhr.send();
+}
 
 
 function addAlertMessage(message, colour) {
@@ -55,7 +76,6 @@ function addAlertMessage(message, colour) {
     node.innerHTML = message;
 
     document.getElementById('alert-div').innerHTML = node.outerHTML;
-
 }
 
 

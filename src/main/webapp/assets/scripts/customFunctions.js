@@ -24,3 +24,7 @@ function getSoupsFromDatabase() {
 
     return soups;
 }
+
+function deleteComponent(element) {
+    element.parentNode.parentNode.remove()
+}
