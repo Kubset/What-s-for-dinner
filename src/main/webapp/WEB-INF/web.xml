@@ -23,6 +23,10 @@
     <servlet-name>apiSoup</servlet-name>
     <servlet-class>servlets.ApiSoupServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>apiUnit</servlet-name>
+    <servlet-class>servlets.ApiUnitServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Main</servlet-name>
@@ -43,6 +47,10 @@
   <servlet-mapping>
     <servlet-name>apiSoup</servlet-name>
     <url-pattern>api/soup/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>apiUnit</servlet-name>
+    <url-pattern>api/unit/*</url-pattern>
   </servlet-mapping>
 
 
