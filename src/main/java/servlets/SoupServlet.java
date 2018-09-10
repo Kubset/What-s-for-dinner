@@ -46,11 +46,7 @@ public class SoupServlet extends HttpServlet {
         SoupManager soupManager = new SoupManager();
         soupManager.create(soup);
 
-
-        //TODO: redirect
-        resp.getWriter().write("saved");
-
-
+        resp.sendRedirect(req.getHeader("referer"));
     }
 
     @Override

@@ -23,14 +23,15 @@ public class SoupManager {
         soupDAO.add(soup);
 
         SqlCriteria soupCriteria = new SoupsByName(soup.getName());
+        SqlCriteria componentCriteria;
 
         int soupId = soupDAO.get(soupCriteria).get(0).getId();
 
-        for(Component component: soup.getComponents()) {
-            //TODO if component is new
-            componentDAO.add(component);
-
-            SqlCriteria componentCriteria = new ComponentsByName(component.getName());
+        for (Component component : soup.getComponents()) {
+            componentCriteria = new ComponentsByName(component.getName());
+            if (componentDAO.get(componentCriteria).size() == 0) {
+                componentDAO.add(component);
+            }
 
             Component _component = componentDAO.get(componentCriteria).get(0);
             soupComponentDAO.add(new SoupComponent(_component.getId(), soupId));
