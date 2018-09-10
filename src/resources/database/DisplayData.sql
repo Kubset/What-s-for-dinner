@@ -29,3 +29,5 @@ SELECT soup.name, components.name FROM soup
 INNER JOIN soup_components ON soup.soup_id = soup_components.soup_id
 INNER JOIN components ON soup_components.component_id = components.component_id
     WHERE soup.name = 'soup2';
+
+SELECT name FROM units;

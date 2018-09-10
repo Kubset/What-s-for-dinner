@@ -1,3 +1,7 @@
+CREATE TABLE units (
+    name TEXT PRIMARY KEY
+);
+
 CREATE TABLE main_dish (
     dish_id SERIAL PRIMARY KEY,
     name TEXT,
@@ -22,12 +26,16 @@ CREATE TABLE components (
 CREATE TABLE dish_components (
     dish_id INTEGER REFERENCES main_dish(dish_id),
     component_id INTEGER REFERENCES components(component_id),
+    count INTEGER,
+    unit TEXT references units(name),
     PRIMARY KEY(dish_id, component_id)
 );
 
 CREATE TABLE soup_components (
     soup_id INTEGER REFERENCES soup(soup_id),
     component_id INTEGER REFERENCES components(component_id),
+    count INTEGER,
+    unit TEXT references units(name),
     PRIMARY KEY(soup_id, component_id)
 );
 
