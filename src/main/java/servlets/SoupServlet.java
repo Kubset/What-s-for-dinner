@@ -4,6 +4,7 @@ import DAO.ComponentDAO;
 import Model.Component;
 import Model.Soup;
 import Model.SoupComponent;
+import Model.Unit;
 import services.SoupManager;
 
 import javax.servlet.RequestDispatcher;
@@ -36,8 +37,10 @@ public class SoupServlet extends HttpServlet {
         String[] unit = req.getParameterValues("unit");
 
         List<Component> components = new ArrayList<>();
-        for(int i=0; i<componentNames.length; i++) {
-           components.add(new Component(componentNames[i]));
+        for(int i=0; i<count.length; i++) {
+           components.add(new Component(componentNames[i],
+                                        Integer.parseInt(count[i]),
+                                        new Unit(unit[i])));
         }
 
         Soup soup = new Soup(soupName);
