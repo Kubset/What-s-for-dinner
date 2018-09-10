@@ -16,7 +16,7 @@ INSERT INTO components (name)
            ('component8_forsoup1fordish3');
 
 
-INSERT INTO dish_components
+INSERT INTO dish_components(dish_id, component_id)
     VALUES ((SELECT dish_id FROM main_dish WHERE name='dish1'), (SELECT component_id FROM components WHERE name='component1_fordish1')),
             ((SELECT dish_id FROM main_dish WHERE name='dish1'), (SELECT component_id FROM components WHERE name='component2_fordish1')),
             ((SELECT dish_id FROM main_dish WHERE name='dish1'), (SELECT component_id FROM components WHERE name='component3_fordish12')),
@@ -29,7 +29,12 @@ INSERT INTO dish_components
 
 
 
-INSERT INTO soup_components
+INSERT INTO soup_components(soup_id, component_id)
     VALUES ((SELECT soup_id FROM soup WHERE name='soup1'), (SELECT component_id FROM components WHERE name='component7_forsoup12')),
            ((SELECT soup_id FROM soup WHERE name='soup2'), (SELECT component_id FROM components WHERE name='component7_forsoup12')),
            ((SELECT soup_id FROM soup WHERE name='soup1'), (SELECT component_id FROM components WHERE name='component8_forsoup1fordish3'));
+
+INSERT INTO units (name)
+    VALUES ('szt'),
+           ('kg'),
+           ('l')
