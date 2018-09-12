@@ -7,22 +7,22 @@ Array.prototype.contains = function ( needle ) {
  }
 
 
-function getSoupsFromDatabase() {
-    var soups = []
+function getCollectionFromDatabase(collectionName) {
+    var elements = []
     var xhr= new XMLHttpRequest();
-    xhr.open('GET', "/api/soup", false);
+    xhr.open('GET', "/api/"+ collectionName, false);
     xhr.onreadystatechange = function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return;
         var json = JSON.parse(this.responseText);
         var node;
         json.forEach(element => {
-            soups.push(element["name"])
+            elements.push(element["name"])
         });
     };
     xhr.send();
 
-    return soups;
+    return elements;
 }
 
 function deleteComponent(element) {

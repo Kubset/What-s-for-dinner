@@ -27,6 +27,10 @@
     <servlet-name>apiUnit</servlet-name>
     <servlet-class>servlets.ApiUnitServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>apiDish</servlet-name>
+    <servlet-class>servlets.ApiDishServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>Main</servlet-name>
@@ -51,6 +55,10 @@
   <servlet-mapping>
     <servlet-name>apiUnit</servlet-name>
     <url-pattern>api/unit/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>apiDish</servlet-name>
+    <url-pattern>api/dish/*</url-pattern>
   </servlet-mapping>
 
 
