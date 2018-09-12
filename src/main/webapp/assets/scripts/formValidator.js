@@ -1,4 +1,4 @@
-function validateForm() {
+function validateForm(formName) {
     var isValidate = true;
 
     var form = document.getElementById('main-form')
@@ -9,7 +9,7 @@ function validateForm() {
         addAlertMessage("You have to add at least one component", "alert-danger")
     }
 
-    var soups = getSoupsFromDatabase();
+    var soups = getCollectionFromDatabase(formName);
     if(soups.contains(components[0].value)) {
         isValidate = false;
         addAlertMessage("Meal with this name already exist", "alert-danger");
