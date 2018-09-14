@@ -1,3 +1,4 @@
+//TODO: refactor name
 function validateForm(formName) {
     var isValidate = true;
 
@@ -26,5 +27,24 @@ function validateForm(formName) {
         addAlertMessage("Successfully added to database", "alert-primary")
         setTimeout(function(){ form.submit() }, 2000);
     }
+
+}
+
+function validatePrepareForm() {
+    var form = document.getElementById('main-form')
+    var checkedValues = document.getElementsByTagName('input');
+    var isSomethingChecked = false;
+
+    for(let i=0; i<checkedValues.length; i++) {
+        if(checkedValues[i].checked) isSomethingChecked = true;
+    }
+
+    if(isSomethingChecked) {
+        addAlertMessage("Processing...", "alert-success")
+        setTimeout(function(){ form.submit() }, 2000);
+    } else {
+        addAlertMessage("Please mark at least one day", "alert-danger")
+    }
+
 
 }
