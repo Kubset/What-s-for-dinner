@@ -16,14 +16,14 @@ function validateForm(formName) {
     }
 
     for(let i=0; i<components.length; i++) {
-        if(components[i].value.length == 0) {
+        if(!components[i].value.length) {
             isValidate = false;
             addAlertMessage("There is at least one empty meal or component field", "alert-danger")
         }
     }
 
     if(isValidate) {
-        addAlertMessage("Succesfully added to database", "alert-primary")
+        addAlertMessage("Successfully added to database", "alert-primary")
         setTimeout(function(){ form.submit() }, 2000);
     }
 
