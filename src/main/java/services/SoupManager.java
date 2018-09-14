@@ -1,8 +1,6 @@
 package services;
 
-import Criteria.ComponentsByName;
-import Criteria.SoupsByName;
-import Criteria.SqlCriteria;
+import Criteria.*;
 import DAO.ComponentDAO;
 import DAO.SoupComponentDAO;
 import DAO.SoupDAO;
@@ -12,6 +10,8 @@ import Model.SoupComponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class SoupManager {
 
@@ -45,7 +45,21 @@ public class SoupManager {
     }
 
     public Soup get(int id) {
-        //TODO: not implemented yet
-        return null;
+        SoupDAO soupDAO = new SoupDAO();
+        ComponentDAO componentDAO = new ComponentDAO();
+        SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
+
+
+        Soup soup = soupDAO.get(new SoupById(id)).get(0);
+
+        List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(id));
+        List<Component> components = new ArrayList<>();
+
+        for(SoupComponent sc : soupComponents) {
+            components.add(componentDAO.get(new ComponentById(sc.getComponentId())).get(0));
+        }
+        soup.setComponents(components);
+
+        return soup;
     }
 }
