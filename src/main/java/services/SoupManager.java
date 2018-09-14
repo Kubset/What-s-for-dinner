@@ -39,6 +39,42 @@ public class SoupManager {
         }
     }
 
+    public List<Soup> getRandom(int count) {
+        SoupDAO soupDAO = new SoupDAO();
+
+        SqlCriteria allSoups = new AllSoups();
+
+        List<Integer> soupIds = soupDAO.get(allSoups)
+                                            .stream()
+                                            .map(Soup::getId)
+                                            .collect(Collectors.toList());
+        //TODO: to another method
+        Random rand = new Random();
+        List<Integer> randomIds = new ArrayList<>();
+        int temp;
+
+        if(count < soupIds.size()) {
+            while (randomIds.size() < count) {
+                temp = soupIds.get(rand.nextInt(soupIds.size()));
+                if (!randomIds.contains(temp)) {
+                    randomIds.add(temp);
+                }
+            }
+        } else {
+            //TODO: place for exception
+            System.out.println("too bic count number");
+        }
+
+
+
+        List<Soup> randomSoups = new ArrayList<>();
+        for(int id : randomIds) {
+            randomSoups.add(get(id));
+        }
+
+        return randomSoups;
+    }
+
     public List<Soup> getAll() {
         //TODO not implemented yet
         return null;
