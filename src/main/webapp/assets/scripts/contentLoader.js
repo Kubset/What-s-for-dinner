@@ -12,5 +12,8 @@ window.onload = function() {
             addSuggestComponents();
             break;
 
+        case '/prepare/dinner':
+            addMainContent("/assets/html/addPrepareContent.html")
+
     }
 }
