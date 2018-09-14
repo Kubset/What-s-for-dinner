@@ -16,6 +16,10 @@
     <servlet-class>servlets.DishServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>Prepare</servlet-name>
+    <servlet-class>servlets.PrepareServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>apiComponent</servlet-name>
     <servlet-class>servlets.ApiComponentServlet</servlet-class>
   </servlet>
@@ -43,6 +47,10 @@
   <servlet-mapping>
     <servlet-name>Dish</servlet-name>
     <url-pattern>/dish/add</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Prepare</servlet-name>
+    <url-pattern>/prepare/dinner</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>apiComponent</servlet-name>

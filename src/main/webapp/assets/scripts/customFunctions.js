@@ -1,6 +1,5 @@
 Array.prototype.contains = function ( needle ) {
     for (i in this) {
-        console.log(i)
         if (this[i] == needle) return true;
     }
     return false;
