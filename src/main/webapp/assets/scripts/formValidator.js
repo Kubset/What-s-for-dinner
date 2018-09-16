@@ -1,16 +1,16 @@
 //TODO: refactor name
 function validateForm(formName) {
-    var isValidate = true;
+    let isValidate = true;
 
-    var form = document.getElementById('main-form')
-    var components = form.getElementsByTagName('input');
+    let form = document.getElementById('main-form');
+    let components = form.getElementsByTagName('input');
 
-    if(components.length == 1) {
+    if(components.length === 1) {
         isValidate = false;
         addAlertMessage("You have to add at least one component", "alert-danger")
     }
 
-    var soups = getCollectionFromDatabase(formName);
+    let soups = getCollectionFromDatabase(formName,"name");
     if(soups.contains(components[0].value)) {
         isValidate = false;
         addAlertMessage("Meal with this name already exist", "alert-danger");
@@ -24,24 +24,31 @@ function validateForm(formName) {
     }
 
     if(isValidate) {
-        addAlertMessage("Successfully added to database", "alert-primary")
+        addAlertMessage("Successfully added to database", "alert-primary");
         setTimeout(function(){ form.submit() }, 2000);
     }
 
 }
 
 function validatePrepareForm() {
-    var form = document.getElementById('main-form')
-    var checkedValues = document.getElementsByTagName('input');
-    var isSomethingChecked = false;
+    let checkedValues = document.getElementsByTagName('input');
+    let isSomethingChecked = false;
 
     for(let i=0; i<checkedValues.length; i++) {
         if(checkedValues[i].checked) isSomethingChecked = true;
     }
 
     if(isSomethingChecked) {
-        addAlertMessage("Processing...", "alert-success")
-        setTimeout(function(){ form.submit() }, 2000);
+        addAlertMessage("Processing...", "alert-success");
+        let checkedDays = [];
+        for(let i=0; i<checkedValues.length; i++) {
+            if(checkedValues[i].checked) checkedDays.push(checkedValues[i].getAttribute("value"))
+        }
+
+        setTimeout(function(){
+                               cleanContent();
+                               generateTable(checkedDays);
+                             }, 2000);
     } else {
         addAlertMessage("Please mark at least one day", "alert-danger")
     }
