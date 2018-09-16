@@ -10,6 +10,7 @@ import Mappers.Mapper;
 import Mappers.SoupMapper;
 import Model.Component;
 import Model.Soup;
+import services.SoupManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,26 +18,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ApiSoupServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] URL = req.getRequestURI().toString().split("/");
+        Mapper<Soup> mapper = new SoupMapper();
+        SoupManager soupManager = new SoupManager();
+        String json = null;
 
-        if(URL.length >= 4) {
-            //get specified id of component and return as json
-            resp.getWriter().write(URL[3]);
+        if(URL.length == 5 && URL[3].equals("random")) {
+            List<Soup> soups = soupManager.getRandom(Integer.parseInt(URL[4]));
+            json = mapper.mapToJson(soups);
+
+        } else if(URL.length == 4) {
+                Soup soup = soupManager.get(Integer.parseInt(URL[3]));
+                json = mapper.mapToJson(soup);
         } else {
-            SoupDAO soupDAO = new SoupDAO();
-            SqlCriteria criteria = new AllSoups();
-            Mapper<Soup> mapper = new SoupMapper();
-
-            List<Soup> soups = soupDAO.get(criteria);
-            String json = mapper.mapToJson(soups);
-
-            resp.getWriter().write(json);
+            List<Soup> soups = soupManager.getAll();
+            json = mapper.mapToJson(soups);
         }
+
+        resp.getWriter().write(json);
 
     }
 
