@@ -1,12 +1,12 @@
 package services;
 
-import Criteria.ComponentsByName;
-import Criteria.DishesByName;
-import Criteria.SoupsByName;
-import Criteria.SqlCriteria;
+import Criteria.*;
 import DAO.*;
+import Mappers.MainDishMapper;
+import Mappers.Mapper;
 import Model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DishManager {
@@ -35,9 +35,13 @@ public class DishManager {
         }
     }
 
-    public List<Soup> getAll() {
-        //TODO not implemented yet
-        return null;
+    public List<MainDish> getAll() {
+        //TODO: only part implementation, shoud return completly object with components
+        MainDishDAO mainDishDAO = new MainDishDAO();
+        SqlCriteria criteria = new AllDishes();
+        Mapper<MainDish> mapper = new MainDishMapper();
+
+        return mainDishDAO.get(criteria);
     }
 
     public Soup get(int id) {
