@@ -5,6 +5,28 @@ Array.prototype.contains = function ( needle ) {
     return false;
  };
 
+Array.prototype.remove = function (array) {
+     for(let i=0; i<array.length; i++) {
+        let index = this.indexOf(array[i]);
+        if(index !== -1) {
+            this.splice(this.indexOf(array[i]),1)
+        }
+    }
+};
+
+function getRandom(array, n) {
+    let result = new Array(n),
+        len = array.length,
+        taken = new Array(len);
+    if (n > len)
+        throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+        let x = Math.floor(Math.random() * len);
+        result[n] = array[x in taken ? taken[x] : x];
+        taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
+}
 
 
 function getCollectionFromDatabase(collectionName,attribute) {
