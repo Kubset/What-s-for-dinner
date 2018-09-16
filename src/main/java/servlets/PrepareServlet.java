@@ -24,13 +24,8 @@ public class PrepareServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String[] checkBoxes = req.getParameterValues("day");
+        //TODO: submit table place, add generated dinners to database
 
-
-        SoupManager soupManager = new SoupManager();
-        List<Soup> randomSoups = soupManager.getRandom(checkBoxes.length);
-
-        //TODO: process dinner, implement dishManager
 
         resp.sendRedirect(req.getHeader("referer"));
     }
