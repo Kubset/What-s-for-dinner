@@ -46,6 +46,21 @@ function getCollectionFromDatabase(collectionName,attribute) {
     return elements;
 }
 
+function getElementFromDatabase(elementName, id) {
+    let json = "";
+    let xhr= new XMLHttpRequest();
+
+    xhr.open('GET', "/api/" + elementName + "/" + id, false);
+    xhr.onreadystatechange = function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return;
+        json = JSON.parse(this.responseText);
+    };
+    xhr.send();
+
+    return json;
+}
+
 function deleteComponent(element) {
     element.parentNode.parentNode.remove()
 }
