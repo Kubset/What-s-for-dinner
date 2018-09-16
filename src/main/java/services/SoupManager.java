@@ -4,6 +4,8 @@ import Criteria.*;
 import DAO.ComponentDAO;
 import DAO.SoupComponentDAO;
 import DAO.SoupDAO;
+import Mappers.Mapper;
+import Mappers.SoupMapper;
 import Model.Component;
 import Model.Soup;
 import Model.SoupComponent;
@@ -76,11 +78,16 @@ public class SoupManager {
     }
 
     public List<Soup> getAll() {
-        //TODO not implemented yet
-        return null;
+        //TODO: only part implementation, shoud return completly object with components
+        Mapper<Soup> mapper = new SoupMapper();
+        SoupDAO soupDAO = new SoupDAO();
+        SqlCriteria criteria = new AllSoups();
+
+        return soupDAO.get(criteria);
     }
 
     public Soup get(int id) {
+        //TODO: handle not exists ids
         SoupDAO soupDAO = new SoupDAO();
         ComponentDAO componentDAO = new ComponentDAO();
         SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
