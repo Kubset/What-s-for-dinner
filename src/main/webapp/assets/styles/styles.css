@@ -3,10 +3,17 @@
     margin-left : 20%;
     margin-right : 20%;
 }
-.fa-trash-alt {
+.big-trash {
     margin-top: 3px;
     margin-right: 3px;
     font-size: 200%;
     color: #5a6268;
   
+}
+.small-trash,.small-sync{
+    margin-right: 40px;
+    font-size: 120%;
+}
+td {
+    border:0px;
 }
