@@ -64,3 +64,56 @@ function getElementFromDatabase(elementName, id) {
 function deleteComponent(element) {
     element.parentNode.parentNode.remove()
 }
+
+function reloadComponents(element) {
+    let componentType = document.getElementById("-1").getAttribute("class");
+    console.log(componentType)
+    let icon = document.getElementById("-1").parentNode.lastChild;
+    icon.setAttribute("class", "fas fa-trash-alt small-trash");
+    icon.setAttribute("onclick", "changeComponent(this,'" + componentType + "')");
+    changeComponent(element, componentType);
+
+}
+
+function changeComponent(element, componentType) {
+    //TODO: refactor, split to smaller functions
+    let isReload = document.getElementsByClassName("fas fa-sync small-sync").length;
+    if(isReload) return;
+
+    let records = document.getElementsByClassName(componentType);
+    let currentNode = element.parentNode.getElementsByTagName("div")[0];
+    let tableNode = document.getElementsByTagName("table")[0];
+
+    tableNode.setAttribute("data-used-id",
+                tableNode.getAttribute("data-used-id") + currentNode.getAttribute("id") + " ");
+
+    let allIds = getCollectionFromDatabase(componentType,"id");
+    let usedIds = tableNode.getAttribute("data-used-id")
+                        .split(" ")
+                        .map(item => {if(item.length)
+                                        return parseInt(item,10)});
+
+    let currentIds = [];
+    for(let i=0; i<records.length; i++) {
+        currentIds[i] = parseInt(records[i].getAttribute("id"))
+    }
+
+    allIds.remove(usedIds);
+    allIds.remove(currentIds);
+
+    if(allIds.length > 0) {
+        let randomId = allIds[Math.floor(Math.random()*allIds.length)];
+        let json = getElementFromDatabase(componentType, randomId);
+
+        currentNode.setAttribute("id", randomId);
+        currentNode.innerHTML = json["name"];
+    } else {
+        let currentNode = element.parentNode;
+        tableNode.setAttribute("data-used-id", "");
+        currentNode.innerHTML = "<div id='-1' class='" + componentType + "'></div>" +
+                                "<i class='fas fa-sync small-sync' onclick ='reloadComponents(this)'></i>"
+
+    }
+}
+
+
