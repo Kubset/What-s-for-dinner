@@ -44,8 +44,23 @@ public class DishManager {
         return mainDishDAO.get(criteria);
     }
 
-    public Soup get(int id) {
-        //TODO: not implemented yet
-        return null;
+    public MainDish get(int id) {
+         //TODO: handle not exists ids
+        MainDishDAO mainDishDAO = new MainDishDAO();
+        ComponentDAO componentDAO = new ComponentDAO();
+        DishComponentDAO dishComponentDAO = new DishComponentDAO();
+
+
+        MainDish mainDish = mainDishDAO.get(new DishById(id)).get(0);
+
+        List<DishComponent> dishComponents = dishComponentDAO.get(new DishComponentByDishId(id));
+        List<Component> components = new ArrayList<>();
+
+        for(DishComponent dc : dishComponents) {
+            components.add(componentDAO.get(new ComponentById(dc.getComponentId())).get(0));
+        }
+        mainDish.setComponents(components);
+
+        return mainDish;
     }
 }
