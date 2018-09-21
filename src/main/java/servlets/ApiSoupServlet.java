@@ -27,13 +27,9 @@ public class ApiSoupServlet extends HttpServlet {
         String[] URL = req.getRequestURI().toString().split("/");
         Mapper<Soup> mapper = new SoupMapper();
         SoupManager soupManager = new SoupManager();
-        String json = null;
+        String json;
 
-        if(URL.length == 5 && URL[3].equals("random")) {
-            List<Soup> soups = soupManager.getRandom(Integer.parseInt(URL[4]));
-            json = mapper.mapToJson(soups);
-
-        } else if(URL.length == 4) {
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
                 Soup soup = soupManager.get(Integer.parseInt(URL[3]));
                 json = mapper.mapToJson(soup);
         } else {
