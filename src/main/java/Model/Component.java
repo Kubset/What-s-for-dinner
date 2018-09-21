@@ -4,7 +4,7 @@ public class Component {
 
     private int id;
     private String name;
-    private int count;
+    private Integer count;
     private Unit unit;
 
     public Component(String name) {
