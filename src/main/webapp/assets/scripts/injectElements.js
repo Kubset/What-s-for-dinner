@@ -121,9 +121,61 @@ function addTableRow(day, soupId, dishId) {
     xhr.send();
 }
 
+function generateDishComponentRecipeTable(dishIds, soupIds) {
+    addMainContent("/assets/html/addDishComponentRecipeTable.html");
+
+    for(let i=0; i<dishIds.length; i++) {
+        addDishComponentRecipeRow("dish", dishIds[i]);
+    }
+
+    for(let i=0; i<dishIds.length; i++) {
+        addDishComponentRecipeRow("soup", soupIds[i]);
+    }
+}
+
+
+function addDishComponentRecipeRow(name, id) {
+    let xhr= new XMLHttpRequest();
+    let parser = new DOMParser();
+
+    let json = getElementFromDatabase(name, id);
+
+    xhr.open('GET', "/assets/html/addDishComponentRecipeRow.html", false);
+    xhr.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return;
+        let node = parser.parseFromString(this.responseText, "text/xml").documentElement;
+
+        node.getElementsByTagName("th")[0].innerHTML = json["name"];
+
+        let componentsNode = node.getElementsByClassName("component-list")[0];
+        let recipeNode = node.getElementsByClassName("recipe")[0];
+
+        let jsonComponents = json["components"];
+        let listRow;
+
+        for(let i=0; i<jsonComponents.length; i++) {
+            listRow = "<li class='component'>" +
+                        jsonComponents[i]["name"] + " " +
+                        jsonComponents[i]["count"] +
+                        jsonComponents[i]["unit"]["name"] +
+                      "</li>";
+            componentsNode.innerHTML += listRow;
+        }
+
+
+        //TODO: add recipes to database and get there
+        recipeNode.innerHTML = "recipe place";
+
+        document.getElementsByTagName('tbody')[0].innerHTML += node.outerHTML;
+    };
+    xhr.send();
+}
+
 function cleanContent() {
     document.getElementById('main-content').innerHTML = ""
 }
+
 
 
 
