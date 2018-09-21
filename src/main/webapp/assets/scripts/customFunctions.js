@@ -74,9 +74,7 @@ function reloadComponents(element) {
     changeComponent(element, componentType);
 
 }
-
 function changeComponent(element, componentType) {
-    //TODO: refactor, split to smaller functions
     let isReload = document.getElementsByClassName("fas fa-sync small-sync").length;
     if(isReload) return;
 
@@ -89,8 +87,8 @@ function changeComponent(element, componentType) {
 
     let allIds = getCollectionFromDatabase(componentType,"id");
     let usedIds = tableNode.getAttribute("data-used-id")
-                        .split(" ")
-                        .map(item => {if(item.length)
+                           .split(" ")
+                           .map(item => {if(item.length)
                                         return parseInt(item,10)});
 
     let currentIds = [];
@@ -112,8 +110,61 @@ function changeComponent(element, componentType) {
         tableNode.setAttribute("data-used-id", "");
         currentNode.innerHTML = "<div id='-1' class='" + componentType + "'></div>" +
                                 "<i class='fas fa-sync small-sync' onclick ='reloadComponents(this)'></i>"
-
     }
 }
 
 
+function postDinnerCollection() {
+
+    let soups = document.getElementsByClassName("soup");
+    let dishes = document.getElementsByClassName("dish");
+
+    let soupIds = [];
+    let dishIds = [];
+    for(let i=0; i<soups.length; i++) {
+       soupIds.push(soups[i].getAttribute("id"))
+    }
+    for(let i=0; i<dishes.length; i++) {
+        dishIds.push(dishes[i].getAttribute("id"))
+    }
+
+    addAlertMessage("processing...", "alert-success");
+
+    setTimeout(function(){
+        cleanContent();
+        generateDishComponentRecipeTable(dishIds, soupIds);
+    }, 2000);
+
+
+}
+
+function sendShoppingList() {
+    let form = document.getElementById("main-form");
+    let hiddenNode = document.createElement("input");
+    hiddenNode.setAttribute("hidden", "true");
+    hiddenNode.setAttribute("name", "components");
+    let nodeComponents = document.getElementsByClassName("component-list")
+
+    let components = "";
+    let tempComponents;
+    for(let i=0; i<nodeComponents.length; i++) {
+        tempComponents = nodeComponents[i].getElementsByClassName("component");
+        tempComponents = Array.prototype.map.call(tempComponents, e => e = e.innerHTML);
+
+        components += tempComponents.toString();
+        components += ",";
+    }
+    components = components.substring(0,components.length-1);
+    hiddenNode.setAttribute("value", components);
+
+    if(!document.getElementsByTagName("input").length) {
+        form.appendChild(hiddenNode);
+    }
+    form.submit();
+}
+
+function sendRecipeList() {
+   //TODO: not implemented yet
+    let form = document.getElementById("main-form");
+    form.submit();
+}

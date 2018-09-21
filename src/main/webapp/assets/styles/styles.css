@@ -13,7 +13,13 @@
 .small-trash,.small-sync{
     margin-right: 40px;
     font-size: 120%;
+    width: 20px;
 }
-td {
-    border:0px;
+
+.soup, .dish {
+    width:130px;
+}
+
+th {
+    max-width: 150px;
 }

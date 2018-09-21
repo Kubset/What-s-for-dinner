@@ -48,15 +48,14 @@ function addSuggestComponents() {
 }
 
 function addUnits() {
-    //TODO: not tested yet
-    var injectPlace = document.getElementsByClassName("select-unit")
-    var xhr= new XMLHttpRequest();
+    let injectPlace = document.getElementsByClassName("select-unit")
+    let xhr= new XMLHttpRequest();
     xhr.open('GET', "/api/unit", true);
     xhr.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return; // or whatever error handling you want
-        var json = JSON.parse(this.responseText);
-        var node;
+        let json = JSON.parse(this.responseText);
+        let node;
         json.forEach(element => {
             node = document.createElement("option")
             node.setAttribute('value', element.name);
@@ -70,7 +69,7 @@ function addUnits() {
 
 
 function addAlertMessage(message, colour) {
-    var node = document.createElement("div");
+    let node = document.createElement("div");
     node.setAttribute("class", "alert " + colour);
     node.setAttribute("role", "alert");
     node.innerHTML = message;
@@ -79,7 +78,7 @@ function addAlertMessage(message, colour) {
 }
 
 function generateTable(days) {
-    addMainContent("/assets/html/addTable.html");
+    addMainContent("/assets/html/addSoupMainDishTable.html");
     let soupIds = getCollectionFromDatabase("soup", "id");
     let dishIds = getCollectionFromDatabase("dish", "id");
 
@@ -96,11 +95,11 @@ function addTableRow(day, soupId, dishId) {
     let parser = new DOMParser();
 
 
-    var soupJson = getElementFromDatabase("soup", soupId);
-    var dishJson = getElementFromDatabase("dish", dishId);
+    let soupJson = getElementFromDatabase("soup", soupId);
+    let dishJson = getElementFromDatabase("dish", dishId);
 
 
-    xhr.open('GET', "/assets/html/addRow.html", false);
+    xhr.open('GET', "/assets/html/addSoupMainDishRow.html", false);
     xhr.onreadystatechange= function() {
         if (this.readyState!==4) return;
         if (this.status!==200) return;
@@ -108,16 +107,65 @@ function addTableRow(day, soupId, dishId) {
 
         node.getElementsByTagName("th")[0].innerHTML = day;
 
-        var soupNode = node.getElementsByClassName("soup")[0];
-        var dishNode = node.getElementsByClassName("dish")[0];
+        let soupNode = node.getElementsByClassName("soup")[0];
+        let dishNode = node.getElementsByClassName("dish")[0];
 
         soupNode.setAttribute("id", soupJson["id"]);
         soupNode.innerHTML = soupJson["name"];
-        console.log(dishJson);
-        console.log(dishNode);
-        console.log(dishNode.getAttribute("id"));
+
         dishNode.setAttribute("id", dishJson["id"]);
         dishNode.innerHTML = dishJson["name"];
+
+        document.getElementsByTagName('tbody')[0].innerHTML += node.outerHTML;
+    };
+    xhr.send();
+}
+
+function generateDishComponentRecipeTable(dishIds, soupIds) {
+    addMainContent("/assets/html/addDishComponentRecipeTable.html");
+
+    for(let i=0; i<dishIds.length; i++) {
+        addDishComponentRecipeRow("dish", dishIds[i]);
+    }
+
+    for(let i=0; i<dishIds.length; i++) {
+        addDishComponentRecipeRow("soup", soupIds[i]);
+    }
+}
+
+
+function addDishComponentRecipeRow(name, id) {
+    let xhr= new XMLHttpRequest();
+    let parser = new DOMParser();
+
+    let json = getElementFromDatabase(name, id);
+
+    xhr.open('GET', "/assets/html/addDishComponentRecipeRow.html", false);
+    xhr.onreadystatechange= function() {
+        if (this.readyState!==4) return;
+        if (this.status!==200) return;
+        let node = parser.parseFromString(this.responseText, "text/xml").documentElement;
+
+        node.getElementsByTagName("th")[0].innerHTML = json["name"];
+
+        let componentsNode = node.getElementsByClassName("component-list")[0];
+        let recipeNode = node.getElementsByClassName("recipe")[0];
+
+        let jsonComponents = json["components"];
+        let listRow;
+
+        for(let i=0; i<jsonComponents.length; i++) {
+            listRow = "<li class='component'>" +
+                        jsonComponents[i]["name"] + " " +
+                        jsonComponents[i]["count"] +
+                        jsonComponents[i]["unit"]["name"] +
+                      "</li>";
+            componentsNode.innerHTML += listRow;
+        }
+
+
+        //TODO: add recipes to database and get there
+        recipeNode.innerHTML = "recipe place";
 
         document.getElementsByTagName('tbody')[0].innerHTML += node.outerHTML;
     };
@@ -127,6 +175,7 @@ function addTableRow(day, soupId, dishId) {
 function cleanContent() {
     document.getElementById('main-content').innerHTML = ""
 }
+
 
 
 

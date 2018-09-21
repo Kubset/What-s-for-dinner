@@ -1,5 +1,4 @@
-//TODO: refactor name
-function validateForm(formName) {
+function validateAddForm(formName) {
     let isValidate = true;
 
     let form = document.getElementById('main-form');
