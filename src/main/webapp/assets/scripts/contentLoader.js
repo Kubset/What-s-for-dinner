@@ -3,17 +3,17 @@ window.onload = function() {
 
     switch(path) {
         case '/soup/add':
-            addMainContent("/assets/html/addSoupContent.html");
-            addSuggestComponents();
+            ContentInjector.addMainContent("/assets/html/addSoupContent.html");
+            ContentInjector.addSuggestComponents();
             break;
 
         case '/dish/add':
-            addMainContent("/assets/html/addDishContent.html");
-            addSuggestComponents();
+            ContentInjector.addMainContent("/assets/html/addDishContent.html");
+            ContentInjector.addSuggestComponents();
             break;
 
         case '/prepare/dinner':
-            addMainContent("/assets/html/addPrepareContent.html");
+            ContentInjector.addMainContent("/assets/html/addPrepareContent.html");
 
     }
 };

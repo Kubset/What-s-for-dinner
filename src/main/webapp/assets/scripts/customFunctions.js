@@ -28,96 +28,18 @@ function getRandom(array, n) {
     return result;
 }
 
-
-function getCollectionFromDatabase(collectionName,attribute) {
-    let elements = [];
-    let xhr= new XMLHttpRequest();
-    xhr.open('GET', "/api/"+ collectionName, false);
-    xhr.onreadystatechange = function() {
-        if (this.readyState!==4) return;
-        if (this.status!==200) return;
-        let json = JSON.parse(this.responseText);
-        json.forEach(element => {
-            elements.push(element[attribute])
-        });
-    };
-    xhr.send();
-
-    return elements;
-}
-
-function getElementFromDatabase(elementName, id) {
-    let json = "";
-    let xhr= new XMLHttpRequest();
-
-    xhr.open('GET', "/api/" + elementName + "/" + id, false);
-    xhr.onreadystatechange = function() {
-        if (this.readyState!==4) return;
-        if (this.status!==200) return;
-        json = JSON.parse(this.responseText);
-    };
-    xhr.send();
-
-    return json;
-}
-
-function deleteComponent(element) {
-    element.parentNode.parentNode.remove()
-}
-
-function reloadComponents(element) {
-    let componentType = document.getElementById("-1").getAttribute("class");
-    console.log(componentType)
-    let icon = document.getElementById("-1").parentNode.lastChild;
-    icon.setAttribute("class", "fas fa-trash-alt small-trash");
-    icon.setAttribute("onclick", "changeComponent(this,'" + componentType + "')");
-    changeComponent(element, componentType);
-
-}
-function changeComponent(element, componentType) {
-    let isReload = document.getElementsByClassName("fas fa-sync small-sync").length;
-    if(isReload) return;
-
-    let records = document.getElementsByClassName(componentType);
-    let currentNode = element.parentNode.getElementsByTagName("div")[0];
-    let tableNode = document.getElementsByTagName("table")[0];
-
-    tableNode.setAttribute("data-used-id",
-                tableNode.getAttribute("data-used-id") + currentNode.getAttribute("id") + " ");
-
-    let allIds = getCollectionFromDatabase(componentType,"id");
-    let usedIds = tableNode.getAttribute("data-used-id")
-                           .split(" ")
-                           .map(item => {if(item.length)
-                                        return parseInt(item,10)});
-
-    let currentIds = [];
-    for(let i=0; i<records.length; i++) {
-        currentIds[i] = parseInt(records[i].getAttribute("id"))
-    }
-
-    allIds.remove(usedIds);
-    allIds.remove(currentIds);
-
-    if(allIds.length > 0) {
-        let randomId = allIds[Math.floor(Math.random()*allIds.length)];
-        let json = getElementFromDatabase(componentType, randomId);
-
-        currentNode.setAttribute("id", randomId);
-        currentNode.innerHTML = json["name"];
-    } else {
-        let currentNode = element.parentNode;
-        tableNode.setAttribute("data-used-id", "");
-        currentNode.innerHTML = "<div id='-1' class='" + componentType + "'></div>" +
-                                "<i class='fas fa-sync small-sync' onclick ='reloadComponents(this)'></i>"
+function disableKeyWordSubmit(e) {
+    let key = e.charCode || e.keyCode || 0;
+    if (key === 13) {
+        e.preventDefault();
     }
 }
-
 
 function postDinnerCollection() {
 
     let soups = document.getElementsByClassName("soup");
     let dishes = document.getElementsByClassName("dish");
+    let tableGenerator = new TableGenerator();
 
     let soupIds = [];
     let dishIds = [];
@@ -128,43 +50,13 @@ function postDinnerCollection() {
         dishIds.push(dishes[i].getAttribute("id"))
     }
 
-    addAlertMessage("processing...", "alert-success");
+    ContentInjector.addAlertMessage("processing...", "alert-success");
 
     setTimeout(function(){
-        cleanContent();
-        generateDishComponentRecipeTable(dishIds, soupIds);
+        ContentInjector.cleanContent();
+        tableGenerator.generateDishComponentRecipeTable(dishIds, soupIds);
     }, 2000);
 
 
 }
 
-function sendShoppingList() {
-    let form = document.getElementById("main-form");
-    let hiddenNode = document.createElement("input");
-    hiddenNode.setAttribute("hidden", "true");
-    hiddenNode.setAttribute("name", "components");
-    let nodeComponents = document.getElementsByClassName("component-list")
-
-    let components = "";
-    let tempComponents;
-    for(let i=0; i<nodeComponents.length; i++) {
-        tempComponents = nodeComponents[i].getElementsByClassName("component");
-        tempComponents = Array.prototype.map.call(tempComponents, e => e = e.innerHTML);
-
-        components += tempComponents.toString();
-        components += ",";
-    }
-    components = components.substring(0,components.length-1);
-    hiddenNode.setAttribute("value", components);
-
-    if(!document.getElementsByTagName("input").length) {
-        form.appendChild(hiddenNode);
-    }
-    form.submit();
-}
-
-function sendRecipeList() {
-   //TODO: not implemented yet
-    let form = document.getElementById("main-form");
-    form.submit();
-}
