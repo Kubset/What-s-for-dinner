@@ -26,12 +26,9 @@ public class ApiDishServlet extends HttpServlet {
         String[] URL = req.getRequestURI().toString().split("/");
         Mapper<MainDish> mapper = new MainDishMapper();
         DishManager dishManager = new DishManager();
-        String json = null;
+        String json;
 
-        if(URL.length == 5 && URL[3].equals("random")) {
-            //TODO: not implemented yet
-
-        } else if(URL.length == 4) {
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
             MainDish mainDish = dishManager.get(Integer.parseInt(URL[3]));
             json = mapper.mapToJson(mainDish);
         } else {
