@@ -2,7 +2,7 @@ package Model;
 
 public class Unit {
     private String name;
-    private int id;
+    private Integer id;
 
     public Unit(String name) {
         this.name = name;
