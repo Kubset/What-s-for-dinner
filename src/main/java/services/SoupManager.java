@@ -51,22 +51,24 @@ public class SoupManager {
     }
 
     public Soup get(int id) {
-        //TODO: handle not exists ids
         SoupDAO soupDAO = new SoupDAO();
         ComponentDAO componentDAO = new ComponentDAO();
         SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
+        ComponentManager componentManager = new ComponentManager();
+        Soup soup = null;
 
+        try {
+            soup = soupDAO.get(new SoupById(id)).get(0);
 
-        Soup soup = soupDAO.get(new SoupById(id)).get(0);
+            List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(id));
+            List<Component> components = componentManager.getComponentsOfSoup(soup.getId());
 
-        List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(id));
-        List<Component> components = new ArrayList<>();
-
-        for(SoupComponent sc : soupComponents) {
-            components.add(componentDAO.get(new ComponentById(sc.getComponentId())).get(0));
+            soup.setComponents(components);
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Soup with this ID does no exist");
         }
-        soup.setComponents(components);
-
         return soup;
     }
+
+
 }
