@@ -41,42 +41,6 @@ public class SoupManager {
         }
     }
 
-    public List<Soup> getRandom(int count) {
-        SoupDAO soupDAO = new SoupDAO();
-
-        SqlCriteria allSoups = new AllSoups();
-
-        List<Integer> soupIds = soupDAO.get(allSoups)
-                                            .stream()
-                                            .map(Soup::getId)
-                                            .collect(Collectors.toList());
-        //TODO: to another method
-        Random rand = new Random();
-        List<Integer> randomIds = new ArrayList<>();
-        int temp;
-
-        if(count < soupIds.size()) {
-            while (randomIds.size() < count) {
-                temp = soupIds.get(rand.nextInt(soupIds.size()));
-                if (!randomIds.contains(temp)) {
-                    randomIds.add(temp);
-                }
-            }
-        } else {
-            //TODO: place for exception
-            System.out.println("too bic count number");
-        }
-
-
-
-        List<Soup> randomSoups = new ArrayList<>();
-        for(int id : randomIds) {
-            randomSoups.add(get(id));
-        }
-
-        return randomSoups;
-    }
-
     public List<Soup> getAll() {
         //TODO: only part implementation, shoud return completly object with components
         Mapper<Soup> mapper = new SoupMapper();
@@ -87,22 +51,24 @@ public class SoupManager {
     }
 
     public Soup get(int id) {
-        //TODO: handle not exists ids
         SoupDAO soupDAO = new SoupDAO();
         ComponentDAO componentDAO = new ComponentDAO();
         SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
+        ComponentManager componentManager = new ComponentManager();
+        Soup soup = null;
 
+        try {
+            soup = soupDAO.get(new SoupById(id)).get(0);
 
-        Soup soup = soupDAO.get(new SoupById(id)).get(0);
+            List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(id));
+            List<Component> components = componentManager.getComponentsOfSoup(soup.getId());
 
-        List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(id));
-        List<Component> components = new ArrayList<>();
-
-        for(SoupComponent sc : soupComponents) {
-            components.add(componentDAO.get(new ComponentById(sc.getComponentId())).get(0));
+            soup.setComponents(components);
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Soup with this ID does no exist");
         }
-        soup.setComponents(components);
-
         return soup;
     }
+
+
 }

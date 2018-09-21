@@ -45,22 +45,23 @@ public class DishManager {
     }
 
     public MainDish get(int id) {
-         //TODO: handle not exists ids
         MainDishDAO mainDishDAO = new MainDishDAO();
         ComponentDAO componentDAO = new ComponentDAO();
         DishComponentDAO dishComponentDAO = new DishComponentDAO();
+        ComponentManager componentManager = new ComponentManager();
 
+        MainDish mainDish = null;
 
-        MainDish mainDish = mainDishDAO.get(new DishById(id)).get(0);
+        try {
+            mainDish = mainDishDAO.get(new DishById(id)).get(0);
 
-        List<DishComponent> dishComponents = dishComponentDAO.get(new DishComponentByDishId(id));
-        List<Component> components = new ArrayList<>();
+            List<DishComponent> dishComponents = dishComponentDAO.get(new DishComponentByDishId(id));
+            List<Component> components = componentManager.getComponentsOfDish(mainDish.getId());
 
-        for(DishComponent dc : dishComponents) {
-            components.add(componentDAO.get(new ComponentById(dc.getComponentId())).get(0));
+            mainDish.setComponents(components);
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("Soup with this ID does no exist");
         }
-        mainDish.setComponents(components);
-
         return mainDish;
     }
 }
