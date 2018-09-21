@@ -74,9 +74,7 @@ function reloadComponents(element) {
     changeComponent(element, componentType);
 
 }
-
 function changeComponent(element, componentType) {
-    //TODO: refactor, split to smaller functions
     let isReload = document.getElementsByClassName("fas fa-sync small-sync").length;
     if(isReload) return;
 
@@ -89,8 +87,8 @@ function changeComponent(element, componentType) {
 
     let allIds = getCollectionFromDatabase(componentType,"id");
     let usedIds = tableNode.getAttribute("data-used-id")
-                        .split(" ")
-                        .map(item => {if(item.length)
+                           .split(" ")
+                           .map(item => {if(item.length)
                                         return parseInt(item,10)});
 
     let currentIds = [];
@@ -112,8 +110,32 @@ function changeComponent(element, componentType) {
         tableNode.setAttribute("data-used-id", "");
         currentNode.innerHTML = "<div id='-1' class='" + componentType + "'></div>" +
                                 "<i class='fas fa-sync small-sync' onclick ='reloadComponents(this)'></i>"
-
     }
+}
+
+
+function postDinnerCollection() {
+
+    let soups = document.getElementsByClassName("soup");
+    let dishes = document.getElementsByClassName("dish");
+
+    let soupIds = [];
+    let dishIds = [];
+    for(let i=0; i<soups.length; i++) {
+       soupIds.push(soups[i].getAttribute("id"))
+    }
+    for(let i=0; i<dishes.length; i++) {
+        dishIds.push(dishes[i].getAttribute("id"))
+    }
+
+    addAlertMessage("processing...", "alert-success");
+
+    setTimeout(function(){
+        cleanContent();
+        generateDishComponentRecipeTable(dishIds, soupIds);
+    }, 2000);
+
+
 }
 
 
