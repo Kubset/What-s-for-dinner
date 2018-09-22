@@ -5,7 +5,7 @@
   <div class="form-group row">
     <label for="dish-name" class="col-sm-3 col-form-label">Main Dish Name: </label>
     <div class="col-sm-9">
-      <input type="name" name="dish-name" class="form-control" id="dish-name" placeholder="Please Insert name of soup...">
+      <input type="name" name="dish-name" class="form-control" id="dish-name" placeholder="Please Insert name of main dish...">
     </div>
   </div>
   <div id="component-rows" >
@@ -13,14 +13,14 @@
   </div>
   <div class="form-group row">
     <div class="col-sm-12">
-      <button type="button" class="btn btn-secondary w-100" onclick="addNewComponent()">
+      <button type="button" class="btn btn-secondary w-100" onclick="ContentInjector.addNewComponent()">
         <i class="fas fa-plus"></i>
       </button>
     </div>
   </div>
   <div class="form-group row">
     <div class="col-sm-10">
-      <button type="button" class="btn btn-secondary" onclick="validateForm('dish')">Submit</button>
+      <button type="button" class="btn btn-secondary" onclick="FormValidator.validateAddForm('dish')">Submit</button>
     </div>
   </div>
 </form>

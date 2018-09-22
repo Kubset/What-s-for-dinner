@@ -10,6 +10,7 @@ import Mappers.Mapper;
 import Mappers.SoupMapper;
 import Model.MainDish;
 import Model.Soup;
+import services.DishManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,20 +24,20 @@ public class ApiDishServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] URL = req.getRequestURI().toString().split("/");
+        Mapper<MainDish> mapper = new MainDishMapper();
+        DishManager dishManager = new DishManager();
+        String json;
 
-        if(URL.length >= 4) {
-            //get specified id of component and return as json
-            resp.getWriter().write(URL[3]);
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            MainDish mainDish = dishManager.get(Integer.parseInt(URL[3]));
+            json = mapper.mapToJson(mainDish);
         } else {
-            MainDishDAO mainDishDAO = new MainDishDAO();
-            SqlCriteria criteria = new AllDishes();
-            Mapper<MainDish> mapper = new MainDishMapper();
-
-            List<MainDish> mainDishes = mainDishDAO.get(criteria);
-            String json = mapper.mapToJson(mainDishes);
-
-            resp.getWriter().write(json);
+            List<MainDish> soups = dishManager.getAll();
+            json = mapper.mapToJson(soups);
         }
+
+        resp.getWriter().write(json);
+
 
     }
 

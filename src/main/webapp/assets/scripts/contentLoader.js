@@ -1,16 +1,19 @@
 window.onload = function() {
-    var path = window.location.pathname
+    let path = window.location.pathname;
 
     switch(path) {
         case '/soup/add':
-            addMainContent("/assets/html/addSoupContent.html")
-            addSuggestComponents();
+            ContentInjector.addMainContent("/assets/html/addSoupContent.html");
+            ContentInjector.addSuggestComponents();
             break;
 
         case '/dish/add':
-            addMainContent("/assets/html/addDishContent.html")
-            addSuggestComponents();
+            ContentInjector.addMainContent("/assets/html/addDishContent.html");
+            ContentInjector.addSuggestComponents();
             break;
 
+        case '/prepare/dinner':
+            ContentInjector.addMainContent("/assets/html/addPrepareContent.html");
+
     }
-}
+};
