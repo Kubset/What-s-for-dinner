@@ -5,6 +5,7 @@ class FormValidator {
         let databaseManager = new DatabaseManager();
         let form = document.getElementById('main-form');
         let components = form.getElementsByTagName('input');
+        let recipe = document.getElementById('recipe');
 
         if (components.length === 1) {
             isValidate = false;
@@ -23,6 +24,28 @@ class FormValidator {
                 ContentInjector.addAlertMessage("There is at least one empty meal or component field", "alert-danger")
             }
         }
+
+        if(!recipe.value.length) {
+            isValidate = false;
+            ContentInjector.addAlertMessage("There is empty recipe area", "alert-danger")
+        }
+
+
+        for(let i=0; i<components.length; i++) {
+            if(!this.validateByRegex(components[i].value)) {
+                ContentInjector.addAlertMessage("Illegal input data, You can't use special characters like:\n" +
+                    "@#!$%^&*~<>/\\", "alert-danger");
+                isValidate = false;
+            }
+        }
+
+        if (!this.validateByRegex(recipe.value)) {
+            ContentInjector.addAlertMessage("Illegal input data, You can't use special characters like:\n" +
+                                            "@#!$%^&*~<>/\\", "alert-danger");
+            isValidate = false;
+        }
+
+
 
         if (isValidate) {
             ContentInjector.addAlertMessage("Successfully added to database", "alert-primary");
@@ -55,5 +78,10 @@ class FormValidator {
         } else {
             ContentInjector.addAlertMessage("Please mark at least one day", "alert-danger")
         }
+    }
+
+    static validateByRegex(str) {
+        let regex = /^[^@#!$%&*^<>~]*$/;
+        return regex.test(str);
     }
 }

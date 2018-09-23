@@ -89,8 +89,7 @@ class TableGenerator {
             }
 
 
-            //TODO: add recipes to database and get there
-            recipeNode.innerHTML = "recipe place";
+            recipeNode.innerHTML = json["recipe"];
 
             document.getElementsByTagName('tbody')[0].innerHTML += node.outerHTML;
         };

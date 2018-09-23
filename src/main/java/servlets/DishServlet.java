@@ -31,6 +31,7 @@ public class DishServlet extends HttpServlet {
         String[] componentNames = req.getParameterValues("component");
         String[] count = req.getParameterValues("count");
         String[] unit = req.getParameterValues("unit");
+        String recipe = req.getParameterValues("recipe")[0];
 
         List<Component> components = new ArrayList<>();
         for(int i=0; i<count.length; i++) {
@@ -41,6 +42,7 @@ public class DishServlet extends HttpServlet {
 
         MainDish mainDish = new MainDish(dishName);
         mainDish.setComponents(components);
+        mainDish.setRecipe(recipe);
 
         DishManager dishManager = new DishManager();
 

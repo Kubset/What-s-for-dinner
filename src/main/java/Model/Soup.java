@@ -7,6 +7,7 @@ public class Soup {
     private int favourite;
     private int id;
     private List<Component> components;
+    private String recipe;
 
     public Soup(String name) {
         this.name = name;
@@ -31,6 +32,19 @@ public class Soup {
     public Soup(int id, String name, int favourite) {
         this(id, name);
         this.favourite = favourite;
+    }
+
+    public Soup(int id, String name, int favourite, String recipe) {
+        this(id, name, favourite);
+        this.recipe = recipe;
+    }
+
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(String recipe) {
+        this.recipe = recipe;
     }
 
     public List<Component> getComponents() {

@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import services.SoupManager;
 
@@ -31,38 +32,26 @@ public class PrepareServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO: split to methods, choose property pdf
-        String[] components = req.getParameter("components").split(",");
-        Arrays.sort(components);
+        resp.setHeader("Expires", "0");
+        resp.setHeader("Cache-Control",
+                "must-revalidate, post-check=0, pre-check=0");
+        resp.setHeader("Pragma", "public");
+        resp.setContentType("application/pdf");
 
-        try {
-            Document document = new Document();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PdfWriter.getInstance(document, baos);
-            document.open();
-            document.add(new Paragraph("Shopping List:"));
-            List list = new List(List.ALIGN_BOTTOM);
-            for(String component : components) {
-                list.add(component);
-            }
-            document.add(list);
-            document.close();
+        String _components = req.getParameter("components");
+        String _mealNames = req.getParameter("meal-names");
+        String _recipes = req.getParameter("recipes");
 
-            resp.setHeader("Expires", "0");
-            resp.setHeader("Cache-Control",
-                    "must-revalidate, post-check=0, pre-check=0");
-            resp.setHeader("Pragma", "public");
-            resp.setContentType("application/pdf");
-            resp.setContentLength(baos.size());
-            OutputStream os = resp.getOutputStream();
-            baos.writeTo(os);
-            os.flush();
-            os.close();
+        if(_components != null) {
+            String[] components = _components.split("#");
+            postShoppingListPDF(components, resp);
+        } else if(_mealNames != null && _recipes != null) {
+            String[] recipes = _recipes.split("#");
+            String[] mealNames = _mealNames.split("#");
+            postRecipeListPDF(recipes, mealNames, resp);
         }
-        catch(DocumentException e) {
-            throw new IOException(e.getMessage());
-        }
-}
+
+    }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -72,6 +61,63 @@ public class PrepareServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doDelete(req, resp);
+    }
+
+    private void postShoppingListPDF(String[] components, HttpServletResponse resp) throws IOException{
+        try {
+            Font f1 =new Font(Font.FontFamily.TIMES_ROMAN,30);
+
+            Document document = new Document();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PdfWriter.getInstance(document, baos);
+            document.open();
+            document.add(new Paragraph("Shopping List:", f1));
+            List list = new List(List.ALIGN_BOTTOM);
+            for (String component : components) {
+                list.add(component);
+            }
+            document.add(list);
+            document.close();
+            resp.setContentLength(baos.size());
+            OutputStream os = resp.getOutputStream();
+            baos.writeTo(os);
+            os.flush();
+            os.close();
+        } catch (DocumentException e) {
+            System.err.println("Can't generate PDF file with shopping list");
+        }
+    }
+
+    private void postRecipeListPDF(String[] recipes, String[] mealNames, HttpServletResponse resp) throws IOException {
+        try {
+            Font f1 =new Font(Font.FontFamily.TIMES_ROMAN,30);
+            Font f2 =new Font(Font.FontFamily.TIMES_ROMAN,20);
+
+            Paragraph paragraph;
+            Document document = new Document();
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PdfWriter.getInstance(document, baos);
+            document.open();
+
+            paragraph = new Paragraph("Recipes:", f1);
+            document.add(paragraph);
+
+            for (int i=0; i<recipes.length; i++) {
+                paragraph = new Paragraph(mealNames[i], f2);
+                document.add(paragraph);
+                document.add(new Paragraph(recipes[i]));
+            }
+
+            document.close();
+            resp.setContentLength(baos.size());
+            OutputStream os = resp.getOutputStream();
+            baos.writeTo(os);
+            os.flush();
+            os.close();
+        } catch (DocumentException e) {
+            System.err.println("Can't generate PDF file with shopping list");
+        }
     }
 
 }

@@ -14,7 +14,8 @@ public class MainDishMapper extends AbstractMapper<MainDish> {
             int id = resultSet.getInt("dish_id");
             int favourite = resultSet.getInt("favourite");
             String name = resultSet.getString("name");
+            String recipe = resultSet.getString("recipe");
 
-            return new MainDish(id, name, favourite);
+            return new MainDish(id, name, favourite, recipe);
     }
 }

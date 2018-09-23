@@ -7,14 +7,16 @@ CREATE TABLE units (
 CREATE TABLE main_dish (
     dish_id SERIAL PRIMARY KEY,
     name TEXT,
-    favourite INTEGER
+    favourite INTEGER,
+    recipe TEXT
 );
 
 
 CREATE TABLE soup (
     soup_id SERIAL PRIMARY KEY,
     name TEXT,
-    favourite INTEGER
+    favourite INTEGER,
+    recipe TEXT
 );
 
 --PRIMARY KEY (soup(soup_id), main_dish(dish_id));
