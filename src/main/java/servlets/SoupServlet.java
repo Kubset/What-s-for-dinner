@@ -28,13 +28,12 @@ public class SoupServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         String soupName = req.getParameter("soup-name");
 
         String[] componentNames = req.getParameterValues("component");
         String[] count = req.getParameterValues("count");
         String[] unit = req.getParameterValues("unit");
+        String recipe = req.getParameterValues("recipe")[0];
 
         List<Component> components = new ArrayList<>();
         for(int i=0; i<count.length; i++) {
@@ -45,6 +44,7 @@ public class SoupServlet extends HttpServlet {
 
         Soup soup = new Soup(soupName);
         soup.setComponents(components);
+        soup.setRecipe(recipe);
 
         SoupManager soupManager = new SoupManager();
         soupManager.create(soup);
