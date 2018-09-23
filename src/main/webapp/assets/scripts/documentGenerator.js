@@ -1,11 +1,10 @@
 class DocumentGenerator {
     static sendShoppingList() {
         let form = document.getElementById("main-form");
-        let hiddenNode = document.createElement("input");
-        hiddenNode.setAttribute("hidden", "true");
-        hiddenNode.setAttribute("name", "components");
-        let nodeComponents = document.getElementsByClassName("component-list");
+        let formData = document.getElementById("form-data");
+        formData.innerHTML = "";
 
+        let nodeComponents = document.getElementsByClassName("component-list");
         let components = "";
         let tempComponents;
         for(let i=0; i<nodeComponents.length; i++) {
@@ -13,20 +12,38 @@ class DocumentGenerator {
             tempComponents = Array.prototype.map.call(tempComponents, e => e = e.innerHTML);
 
             components += tempComponents.toString();
-            components += ",";
+            components += "#";
         }
         components = components.substring(0,components.length-1);
-        hiddenNode.setAttribute("value", components);
 
-        if(!document.getElementsByTagName("input").length) {
-            form.appendChild(hiddenNode);
-        }
+        formData.appendChild(createHiddenNode("components",components));
         form.submit();
     }
 
     static sendRecipeList() {
-        //TODO: not implemented yet
+
         let form = document.getElementById("main-form");
+        let formData = document.getElementById("form-data");
+        formData.innerHTML = "";
+
+
+        let nodeNames = document.getElementsByClassName("meal-name");
+        let nodeRecipes = document.getElementsByClassName("recipe");
+        let names = "";
+        let recipes = "";
+        let temp;
+        for(let i=0; i<nodeNames.length; i++) {
+            names += nodeNames[i].innerHTML;
+            recipes += nodeRecipes[i].innerHTML;
+
+            names += "#";
+            recipes += "#";
+        }
+        names = names.substring(0,recipes.length-1);
+        recipes = recipes.substring(0,recipes.length-1);
+
+        formData.appendChild(createHiddenNode("recipes", recipes));
+        formData.appendChild(createHiddenNode("meal-names", names));
         form.submit();
     }
 }
