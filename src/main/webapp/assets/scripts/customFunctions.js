@@ -60,3 +60,14 @@ function postDinnerCollection() {
 
 }
 
+function createHiddenNode(name, value) {
+
+    let hiddenNode = document.createElement("input");
+    hiddenNode.setAttribute("hidden", "true");
+    hiddenNode.setAttribute("name", name);
+    hiddenNode.setAttribute("value", value);
+
+    return hiddenNode;
+}
+
+
