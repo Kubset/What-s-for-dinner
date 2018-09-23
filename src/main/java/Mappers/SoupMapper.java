@@ -13,7 +13,8 @@ public class SoupMapper extends AbstractMapper<Soup> {
             int id = resultSet.getInt("soup_id");
             int favourite = resultSet.getInt("favourite");
             String name = resultSet.getString("name");
+            String recipe = resultSet.getString("recipe");
 
-            return new Soup(id, name, favourite);
+            return new Soup(id, name, favourite, recipe);
     }
 }
