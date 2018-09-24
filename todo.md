@@ -6,3 +6,4 @@ TODO: FIX ID COLLISION OF DISHES AND SOUPS
 TODO: FIX NAMES OF ADDTABLE ADDROW in html and js
 TODO: ADD alert place to main content !
 TODO: how to get only ids from database? local/soup/id?
+TODO: interfaces for services
