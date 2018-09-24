@@ -42,12 +42,17 @@ public class SoupManager {
     }
 
     public List<Soup> getAll() {
-        //TODO: only part implementation, shoud return completly object with components
         Mapper<Soup> mapper = new SoupMapper();
         SoupDAO soupDAO = new SoupDAO();
-        SqlCriteria criteria = new AllSoups();
+        ComponentManager componentManager = new ComponentManager();
 
-        return soupDAO.get(criteria);
+        List<Soup> soups = soupDAO.get(new AllSoups());
+
+        for(Soup soup : soups) {
+            soup.setComponents(componentManager.getComponentsOfSoup(soup.getId()));
+        }
+
+        return soups;
     }
 
     public Soup get(int id) {
