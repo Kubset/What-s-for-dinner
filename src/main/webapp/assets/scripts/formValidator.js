@@ -7,16 +7,19 @@ class FormValidator {
         let components = form.getElementsByTagName('input');
         let recipe = document.getElementById('recipe');
 
-        if (components.length === 1) {
+        if (components.length < 3) {
             isValidate = false;
             ContentInjector.addAlertMessage("You have to add at least one component", "alert-danger")
         }
 
-        let soups = databaseManager.getCollectionFromDatabase(formName, "name");
-        if (soups.contains(components[0].value)) {
-            isValidate = false;
-            ContentInjector.addAlertMessage("Meal with this name already exist", "alert-danger");
+        if(!document.getElementsByName("id").length) {
+            let soups = databaseManager.getCollectionFromDatabase(formName, "name");
+            if (soups.contains(components[0].value)) {
+                isValidate = false;
+                ContentInjector.addAlertMessage("Meal with this name already exist", "alert-danger");
+            }
         }
+
 
         for (let i = 0; i < components.length; i++) {
             if (!components[i].value.length) {
@@ -24,6 +27,7 @@ class FormValidator {
                 ContentInjector.addAlertMessage("There is at least one empty meal or component field", "alert-danger")
             }
         }
+
 
         if(!recipe.value.length) {
             isValidate = false;

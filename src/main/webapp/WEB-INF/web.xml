@@ -42,11 +42,11 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Soup</servlet-name>
-    <url-pattern>/soup/add</url-pattern>
+    <url-pattern>/soup/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Dish</servlet-name>
-    <url-pattern>/dish/add</url-pattern>
+    <url-pattern>/dish/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Prepare</servlet-name>

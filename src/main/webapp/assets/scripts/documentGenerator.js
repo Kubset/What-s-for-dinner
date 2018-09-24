@@ -9,9 +9,9 @@ class DocumentGenerator {
         let tempComponents;
         for(let i=0; i<nodeComponents.length; i++) {
             tempComponents = nodeComponents[i].getElementsByClassName("component");
-            tempComponents = Array.prototype.map.call(tempComponents, e => e = e.innerHTML);
+            tempComponents = Array.prototype.map.call(tempComponents, e => e.innerHTML);
 
-            components += tempComponents.toString();
+            components += tempComponents.toString().replace(/,/g,"#");
             components += "#";
         }
         components = components.substring(0,components.length-1);
