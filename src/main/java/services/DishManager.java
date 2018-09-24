@@ -36,12 +36,17 @@ public class DishManager {
     }
 
     public List<MainDish> getAll() {
-        //TODO: only part implementation, shoud return completly object with components
         MainDishDAO mainDishDAO = new MainDishDAO();
-        SqlCriteria criteria = new AllDishes();
         Mapper<MainDish> mapper = new MainDishMapper();
+        ComponentManager componentManager = new ComponentManager();
 
-        return mainDishDAO.get(criteria);
+        List<MainDish> mainDishes = mainDishDAO.get(new AllDishes());
+
+        for(MainDish mainDish : mainDishes) {
+            mainDish.setComponents(componentManager.getComponentsOfDish(mainDish.getId()));
+        }
+
+        return mainDishes;
     }
 
     public MainDish get(int id) {
