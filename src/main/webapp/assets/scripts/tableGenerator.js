@@ -95,4 +95,58 @@ class TableGenerator {
         };
         xhr.send();
     }
+
+    generateEditTable(elementType) {
+        ContentInjector.addMainContent("/assets/html/addEditTable.html");
+
+        let databaseManager = new DatabaseManager();
+        let elements = databaseManager.getCollectionFromDatabase(elementType);
+
+        let name;
+        let components = [];
+        let recipe;
+
+        for(let i=0; i<elements.length; i++) {
+            this.addEditRow(elements[i], elementType);
+        }
+    }
+
+    addEditRow(element, elementType) {
+
+        let xhr = new XMLHttpRequest();
+        let parser = new DOMParser();
+
+        xhr.open('GET', "/assets/html/addEditRow.html", false);
+        xhr.onreadystatechange = function () {
+            if (this.readyState !== 4) return;
+            if (this.status !== 200) return;
+            let node = parser.parseFromString(this.responseText, "text/xml").documentElement;
+            let recipeNode = node.getElementsByClassName("recipe")[0];
+            let actionNode = node.getElementsByClassName("actions")[0];
+            let componentsNode = node.getElementsByClassName("component-list")[0];
+            let nameNode = node.getElementsByTagName("th")[0];
+
+            nameNode.innerHTML = element["name"];
+            nameNode.setAttribute("class", elementType);
+            actionNode.setAttribute("id", element["id"]);
+            recipeNode.innerHTML = element["recipe"];
+
+            let components = element["components"];
+            for(let i=0; i<components.length; i++) {
+                //TODO: refactor of spliiting json to string(also in upper func)
+                components[i] = "<li class='component'>" +
+                                components[i]["name"] + " " +
+                                components[i]["count"] +
+                                components[i]["unit"]["name"] +
+                                "</li>";
+            }
+
+            for(let i=0; i<components.length; i++){
+               componentsNode.innerHTML += components[i];
+            }
+
+            document.getElementsByTagName('tbody')[0].innerHTML += node.outerHTML;
+        };
+        xhr.send();
+    }
 }
