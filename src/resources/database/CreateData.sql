@@ -28,19 +28,20 @@ CREATE TABLE components (
  );
 
 CREATE TABLE dish_components (
+    dish_component_id SERIAL PRIMARY KEY,
     dish_id INTEGER REFERENCES main_dish(dish_id),
     component_id INTEGER REFERENCES components(component_id),
     count INTEGER,
-    unit TEXT,
-    PRIMARY KEY(dish_id, component_id)
+    unit TEXT
 );
 
 CREATE TABLE soup_components (
+    soup_component_id SERIAL PRIMARY KEY,
     soup_id INTEGER REFERENCES soup(soup_id),
     component_id INTEGER REFERENCES components(component_id),
     count INTEGER,
-    unit TEXT,
-    PRIMARY KEY(soup_id, component_id)
+    unit TEXT
+
 );
 
 
