@@ -4,10 +4,7 @@ import Criteria.*;
 import DAO.*;
 import Mappers.MainDishMapper;
 import Mappers.Mapper;
-import Model.Component;
-import Model.DishComponent;
-import Model.MainDish;
-import Model.SoupComponent;
+import Model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +42,75 @@ public class ComponentManager {
         }
 
         return components;
+    }
+
+    public void deleteComponentsOfSoup(Soup soup) {
+        ComponentDAO componentDAO = new ComponentDAO();
+        SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
+
+        List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(soup.getId()));
+
+        System.out.println(soupComponents);
+        for(int i=0; i<soupComponents.size(); i++) {
+            System.out.println(soupComponents.get(i).getId());
+
+        }
+
+        for(SoupComponent sc : soupComponents) {
+            soupComponentDAO.delete(sc);
+        }
+    }
+
+    public void deleteComponentsOfDish(MainDish mainDish) {
+        ComponentDAO componentDAO = new ComponentDAO();
+        DishComponentDAO dishComponentDAO = new DishComponentDAO();
+
+        List<DishComponent> dishComponents = dishComponentDAO.get(new DishComponentByDishId(mainDish.getId()));
+
+        for(DishComponent dc : dishComponents) {
+            dishComponentDAO.delete(dc);
+        }
+    }
+
+    public void addComponentsToSoup(Soup soup) {
+        SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
+        ComponentDAO componentDAO = new ComponentDAO();
+        List<Component> components = soup.getComponents();
+
+        SqlCriteria componentCriteria;
+        for(Component component : components) {
+           componentCriteria = new ComponentsByName(component.getName());
+            if (componentDAO.get(componentCriteria).size() == 0) {
+                componentDAO.add(component);
+            }
+            Component _component = componentDAO.get(componentCriteria).get(0);
+            soupComponentDAO.add(new SoupComponent(soup.getId(),
+                                                   _component.getId(),
+                                                   component.getCount(),
+                                                   component.getUnit()));
+        }
+
+
+    }
+
+    public void addComponentsToDish(MainDish mainDish) {
+        DishComponentDAO dishComponentDAO = new DishComponentDAO();
+        ComponentDAO componentDAO = new ComponentDAO();
+        List<Component> components = mainDish.getComponents();
+
+        SqlCriteria componentCriteria;
+        for(Component component : components) {
+           componentCriteria = new ComponentsByName(component.getName());
+            if (componentDAO.get(componentCriteria).size() == 0) {
+                componentDAO.add(component);
+            }
+            Component _component = componentDAO.get(componentCriteria).get(0);
+            dishComponentDAO.add(new DishComponent(mainDish.getId(),
+                                                   _component.getId(),
+                                                   component.getCount(),
+                                                   component.getUnit()));
+        }
+
     }
 
 }

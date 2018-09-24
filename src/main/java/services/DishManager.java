@@ -36,12 +36,17 @@ public class DishManager {
     }
 
     public List<MainDish> getAll() {
-        //TODO: only part implementation, shoud return completly object with components
         MainDishDAO mainDishDAO = new MainDishDAO();
-        SqlCriteria criteria = new AllDishes();
         Mapper<MainDish> mapper = new MainDishMapper();
+        ComponentManager componentManager = new ComponentManager();
 
-        return mainDishDAO.get(criteria);
+        List<MainDish> mainDishes = mainDishDAO.get(new AllDishes());
+
+        for(MainDish mainDish : mainDishes) {
+            mainDish.setComponents(componentManager.getComponentsOfDish(mainDish.getId()));
+        }
+
+        return mainDishes;
     }
 
     public MainDish get(int id) {
@@ -63,5 +68,15 @@ public class DishManager {
             System.err.println("Soup with this ID does no exist");
         }
         return mainDish;
+    }
+
+    public void edit(MainDish mainDish) {
+       MainDishDAO mainDishDAO = new MainDishDAO();
+       DishComponentDAO dishComponentDAO = new DishComponentDAO();
+       ComponentManager componentManager = new ComponentManager();
+
+       mainDishDAO.update(mainDish);
+       componentManager.deleteComponentsOfDish(mainDish);
+       componentManager.addComponentsToDish(mainDish);
     }
 }
