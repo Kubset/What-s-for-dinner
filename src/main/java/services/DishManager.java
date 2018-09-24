@@ -69,4 +69,14 @@ public class DishManager {
         }
         return mainDish;
     }
+
+    public void edit(MainDish mainDish) {
+       MainDishDAO mainDishDAO = new MainDishDAO();
+       DishComponentDAO dishComponentDAO = new DishComponentDAO();
+       ComponentManager componentManager = new ComponentManager();
+
+       mainDishDAO.update(mainDish);
+       componentManager.deleteComponentsOfDish(mainDish);
+       componentManager.addComponentsToDish(mainDish);
+    }
 }
