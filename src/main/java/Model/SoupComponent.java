@@ -24,7 +24,7 @@ public class SoupComponent {
         this.unit = unit;
     }
 
-    public SoupComponent(int soupId, int componentId, int id, int count, Unit unit) {
+    public SoupComponent(int id, int soupId, int componentId, int count, Unit unit) {
         this(soupId, componentId, count, unit);
         this.id = id;
     }
