@@ -75,5 +75,15 @@ public class SoupManager {
         return soup;
     }
 
+    public void edit(Soup soup) {
+       SoupDAO soupDAO = new SoupDAO();
+       SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
+       ComponentManager componentManager = new ComponentManager();
+
+       soupDAO.update(soup);
+       componentManager.deleteComponentsOfSoup(soup);
+       componentManager.addComponentsToSoup(soup);
+    }
+
 
 }
