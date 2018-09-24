@@ -14,9 +14,10 @@ public class DishComponentMapper extends AbstractMapper<DishComponent> {
     public DishComponent map(ResultSet resultSet) throws SQLException {
             int componentId = resultSet.getInt("component_id");
             int DishId = resultSet.getInt("dish_id");
+            int id = resultSet.getInt("dish_component_id");
             int count = resultSet.getInt("count");
             String unit = resultSet.getString("unit");
 
-            return new DishComponent(DishId, componentId, count, new Unit(unit));
+            return new DishComponent(id, DishId, componentId, count, new Unit(unit));
     }
 }
