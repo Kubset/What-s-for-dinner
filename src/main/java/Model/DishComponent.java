@@ -24,7 +24,7 @@ public class DishComponent {
         this.unit = unit;
     }
 
-    public DishComponent(int dishId, int componentId, int id, int count, Unit unit) {
+    public DishComponent(int id, int dishId, int componentId, int count, Unit unit) {
         this(dishId, componentId, count, unit);
         this.id = id;
     }
