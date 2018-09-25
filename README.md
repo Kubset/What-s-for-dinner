@@ -12,6 +12,8 @@ We can generate PDF shopping list of products and PDF list of recipes
 ** version beta is only show version. It has only one base of meals and products,
 in nearest future will be added account feature
 
+##Deployment
+https://whats-for-dinner-app.herokuapp.com/
 
 ## Used technologies
 - Java
@@ -41,4 +43,6 @@ in nearest future will be added account feature
 - form validations
 - responsible tables and forms
 
+###version 1.01 (beta)
+- add heroku deployment
 
