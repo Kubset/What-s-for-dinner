@@ -1,0 +1,76 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <servlet>
+    <servlet-name>Main</servlet-name>
+    <servlet-class>servlets.MainServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Soup</servlet-name>
+    <servlet-class>servlets.SoupServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Dish</servlet-name>
+    <servlet-class>servlets.DishServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Prepare</servlet-name>
+    <servlet-class>servlets.PrepareServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>apiComponent</servlet-name>
+    <servlet-class>servlets.ApiComponentServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>apiSoup</servlet-name>
+    <servlet-class>servlets.ApiSoupServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>apiUnit</servlet-name>
+    <servlet-class>servlets.ApiUnitServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>apiDish</servlet-name>
+    <servlet-class>servlets.ApiDishServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Main</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Soup</servlet-name>
+    <url-pattern>/soup/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Dish</servlet-name>
+    <url-pattern>/dish/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Prepare</servlet-name>
+    <url-pattern>/prepare/dinner</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>apiComponent</servlet-name>
+    <url-pattern>api/component/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>apiSoup</servlet-name>
+    <url-pattern>api/soup/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>apiUnit</servlet-name>
+    <url-pattern>api/unit/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>apiDish</servlet-name>
+    <url-pattern>api/dish/*</url-pattern>
+  </servlet-mapping>
+
+
+  <display-name>Archetype Created Web Application</display-name>
+</web-app>
+
+

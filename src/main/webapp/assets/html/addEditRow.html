@@ -1,0 +1,19 @@
+<tr>
+    <th scope="row" class="meal-name"><!--mealName--></th>
+    <td>
+        <div>
+            <ul class="component-list">
+                <!--components-->
+            </ul>
+        </div>
+    </td>
+    <td>
+        <div class="recipe"><!--recipe--></div>
+    </td>
+    <td>
+        <div class="actions">
+            <i class="fas fa-trash-alt small-trash" onclick="ComponentManager.deleteComponent(this.parentNode)"> </i>
+            <i class="fas fa-pen-square small-pen-square" onclick ="ComponentManager.editComponent(this.parentNode.parentNode.parentNode)"> </i>
+        </div>
+    </td>
+</tr>

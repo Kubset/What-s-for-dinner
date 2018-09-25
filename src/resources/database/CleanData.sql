@@ -1,0 +1,5 @@
+TRUNCATE main_dish CASCADE;
+TRUNCATE soup CASCADE;
+TRUNCATE components CASCADE;
+TRUNCATE dish_components CASCADE;
+TRUNCATE units;

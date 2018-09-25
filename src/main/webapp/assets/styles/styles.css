@@ -1,0 +1,25 @@
+#main-content {
+    margin-top : 5%;
+    margin-left : 20%;
+    margin-right : 20%;
+}
+.big-trash {
+    margin-top: 3px;
+    margin-right: 3px;
+    font-size: 200%;
+    color: #5a6268;
+  
+}
+.small-trash,.small-sync, .small-pen-square{
+    margin-right: 40px;
+    font-size: 120%;
+    width: 20px;
+}
+
+.soup, .dish {
+    width:130px;
+}
+
+th {
+    max-width: 150px;
+}
