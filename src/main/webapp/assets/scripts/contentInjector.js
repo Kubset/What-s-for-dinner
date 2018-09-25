@@ -1,15 +1,17 @@
-//TODO: refactor overloaded method
 class ContentInjector {
     static addNewComponent(componentName, componentCount, componentUnit) {
         let parser = new DOMParser();
         let xhr= new XMLHttpRequest();
+
         xhr.open('GET', '/assets/html/newComponent.html', false);
         xhr.onreadystatechange= function() {
             if (this.readyState!==4) return;
             if (this.status!==200) return;
+
             let node = parser.parseFromString(this.responseText, "text/html");
             node = node.getElementsByClassName("form-group")[0];
             ContentInjector.addUnits(node);
+
             if(typeof componentName !== "undefined" && typeof  componentCount !== "undefined" && typeof  componentUnit !== "undefined") {
                 let inputs = node.getElementsByTagName("input")
                 inputs[0].value = componentName;
