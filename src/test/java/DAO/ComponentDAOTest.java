@@ -4,10 +4,7 @@ import Criteria.AllComponents;
 import Criteria.ComponentsByName;
 import Criteria.SqlCriteria;
 import Model.Component;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +18,11 @@ class ComponentDAOTest {
     private static List<Component> componentsBefore;
     private static List<Component> componentsAfter;
     private static List<Component> exampleComponents = new ArrayList<>();
+
+    @BeforeAll
+    public static void setup() {
+       ConnectionProvider.setPropertiesPath("src/test/resources");
+    }
 
     @DisplayName("Add multiple elements to database")
     @Test

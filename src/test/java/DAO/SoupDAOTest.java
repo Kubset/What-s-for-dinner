@@ -4,6 +4,7 @@ import Criteria.AllSoups;
 import Criteria.SoupsByName;
 import Criteria.SqlCriteria;
 import Model.Soup;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +21,11 @@ class SoupDAOTest {
     private static List<Soup> soupsBefore;
     private static List<Soup> soupsAfter;
     private static List<Soup> exampleSoups = new ArrayList<>();
+
+    @BeforeAll
+    public static void setup() {
+        ConnectionProvider.setPropertiesPath("src/test/resources");
+    }
 
     @DisplayName("Add multiple elements to database")
     @Test
