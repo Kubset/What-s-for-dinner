@@ -15,20 +15,26 @@ in nearest future will be added account feature
 ##Deployment
 https://whats-for-dinner-app.herokuapp.com/
 
-## Used technologies
-- Java
+## Used technologies/skills
+- Java 8
 - Servlets
 - Persistence api
 - custom implementation DAO (without Spring/Hibernate)
 - custom implementation ORM (manual mapping objects)
 - Postgres
+- Github
 - Javascript (ES6 with classes)
 - HTML5, Css, Bootstrap4
 - JUnit 5
 - Maven
-- Github
+- Heroku
+- SOLID
 
-
+## Tests
+To run tests You have to create postgres database on own localhost,
+scripts for create database are available in src/TEST/resources/database dictionary
+You should fill data in database.properties in src/TEST/resources/database.properties
+** there are two database.properties file one for deploy and one for test !!
 
 ### version 1.0 (beta)
 ##### added features

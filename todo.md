@@ -1,6 +1,10 @@
+# version 2.0:
 - MERGE API SERVLETS WITH STANDARD SERVLETS (?)
 - FIX PROBLEM WITH CODE DUPLICATE IN CRITERIA GET BY ID
 - MAKE GOOD DESIGN TO PREPARE CONTENT
 - FIX ID COLLISION OF DISHES AND SOUPS
 - ADD ALERT PLACE TO MAIN CONTENT
-
+- fix problem with responsible tables in prepare
+- readme update
+- add tests  services !!
+- 
