@@ -12,7 +12,7 @@ We can generate PDF shopping list of products and PDF list of recipes
 ** version beta is only show version. It has only one base of meals and products,
 in nearest future will be added account feature
 
-##Deployment
+## Deployment
 https://whats-for-dinner-app.herokuapp.com/
 
 ## Used technologies/skills
@@ -49,6 +49,6 @@ You should fill data in database.properties in src/TEST/resources/database.prope
 - form validations
 - responsible tables and forms
 
-###version 1.01 (beta)
+### version 1.01 (beta)
 - add heroku deployment
 
