@@ -9,7 +9,7 @@ import java.sql.SQLException;
 abstract class GetById implements SqlCriteria {
 
     private final String QUERY;
-    private int id;
+    private final int id;
 
     public GetById(String QUERY, int id) {
         this.QUERY = QUERY;
