@@ -32,6 +32,8 @@ public class ApiComponentServlet extends HttpServlet {
             List<Component> components = componentDAO.get(criteria);
             String json = mapper.mapToJson(components);
 
+            resp.setContentType("text/html; charset=UTF-8");
+            resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(json);
         }
 

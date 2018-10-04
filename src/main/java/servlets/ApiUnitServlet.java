@@ -35,6 +35,8 @@ public class ApiUnitServlet extends HttpServlet {
             List<Unit> units = unitDAO.get(criteria);
             String json = mapper.mapToJson(units);
 
+            resp.setContentType("text/html; charset=UTF-8");
+            resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(json);
         }
 

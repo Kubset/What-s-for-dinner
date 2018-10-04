@@ -32,10 +32,12 @@ public class ApiDishServlet extends HttpServlet {
             MainDish mainDish = dishManager.get(Integer.parseInt(URL[3]));
             json = mapper.mapToJson(mainDish);
         } else {
-            List<MainDish> soups = dishManager.getAll();
-            json = mapper.mapToJson(soups);
+            List<MainDish> mainDish = dishManager.getAll();
+            json = mapper.mapToJson(mainDish);
         }
 
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
 
 

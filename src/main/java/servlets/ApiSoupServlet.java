@@ -37,6 +37,9 @@ public class ApiSoupServlet extends HttpServlet {
             json = mapper.mapToJson(soups);
         }
 
+
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
 
     }
