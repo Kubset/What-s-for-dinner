@@ -135,3 +135,35 @@ class SoupManagerTest {
         soupManager.delete(soup);
         componentManager.deleteAllComponents();
     }
+
+    @Test
+    public void test_deleteSoupFromDatabase() {
+        List<Component> exampleComponents = prepareExampleComponents();
+
+        Soup soup = new Soup("exampleSoup1");
+        soup.setComponents(exampleComponents);
+
+        soupManager.create(soup);
+        soup.setId(soupDAO.get(new SoupsByName("exampleSoup1")).get(0).getId());
+
+        soupManager.delete(soup);
+
+        List<Soup> actualSoups = soupManager.getAll();
+
+        assertEquals(0, actualSoups.size());
+
+        componentManager.deleteAllComponents();
+
+    }
+
+    private List<Component> prepareExampleComponents() {
+        List<Component> components = new ArrayList<>();
+        for(int i=0 ;i<5; i++) {
+            components.add(new Component("exampleComponent"+i, i, new Unit("unit")));
+        }
+
+        return components;
+    }
+
+
+}
