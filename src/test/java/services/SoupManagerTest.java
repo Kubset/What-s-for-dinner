@@ -87,3 +87,28 @@ class SoupManagerTest {
 
         assertEquals(expectedSoups, allSoups);
     }
+
+    @Test
+    public void test_getAllSoupsFromDatabase() {
+        List<Component> exampleComponents = prepareExampleComponents();
+        Soup firstSoup = new Soup("exampleSoup1");
+        firstSoup.setComponents(exampleComponents);
+        Soup secondSoup = new Soup("exampleSoup2");
+        secondSoup.setComponents(exampleComponents);
+
+        soupManager.create(firstSoup);
+        soupManager.create(secondSoup);
+        firstSoup.setId(soupDAO.get(new SoupsByName("exampleSoup1")).get(0).getId());
+        secondSoup.setId(soupDAO.get(new SoupsByName("exampleSoup2")).get(0).getId());
+
+        List<Soup> actualSoups = soupManager.getAll();
+
+        assertAll(() -> {
+            assertEquals(actualSoups.get(0), firstSoup);
+            assertEquals(actualSoups.get(1), secondSoup);
+        });
+
+        soupManager.delete(firstSoup);
+        soupManager.delete(secondSoup);
+        componentManager.deleteAllComponents();
+    }
