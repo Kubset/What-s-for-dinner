@@ -60,7 +60,15 @@ public class ApiDishServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        Gson gson = new Gson();
+        String json = req.getReader().readLine();
+        DishManager dishManager = new DishManager();
+
+        MainDish mainDish = gson.fromJson(json, MainDish.class);
+        dishManager.edit(mainDish);
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+
     }
 
     @Override
