@@ -95,5 +95,13 @@ class FormValidator {
         return true;
     }
 
+    static validateNumberComponents(components) {
+        if (!components.length) {
+            ContentInjector.addAlertMessage("You have to add at least one component", "alert-danger")
+            return false;
+        }
+        return true;
+    }
+
     }
 }
