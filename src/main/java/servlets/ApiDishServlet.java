@@ -73,7 +73,16 @@ public class ApiDishServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        String[] URL = req.getRequestURI().toString().split("/");
+        DishManager dishManager = new DishManager();
+
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            int id = Integer.valueOf(URL[3]);
+            dishManager.delete(new MainDish(id));
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 }
 
