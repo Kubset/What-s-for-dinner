@@ -113,5 +113,14 @@ class FormValidator {
         return true;
     }
 
+    static validateTypeOfForm() {
+        if (!document.getElementsByName("id").length) {
+            return "POST";
+        }
+        else {
+            return "PUT";
+        }
+    }
+
     }
 }
