@@ -79,3 +79,11 @@ class SoupManagerTest {
         soupManager.delete(actualSoup2);
         componentManager.deleteAllComponents();
     }
+
+    @Test
+    public void test_getAllSoupsFromEmptyDatabase() {
+        List<Soup> expectedSoups = new ArrayList<>();
+        List<Soup> allSoups = soupManager.getAll();
+
+        assertEquals(expectedSoups, allSoups);
+    }
