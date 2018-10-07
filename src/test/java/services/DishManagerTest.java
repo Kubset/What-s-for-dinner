@@ -1,5 +1,6 @@
 package services;
 
+import Criteria.AllComponents;
 import Criteria.DishesByName;
 import DAO.ComponentDAO;
 import DAO.ConnectionProvider;
@@ -49,9 +50,39 @@ class DishManagerTest {
         });
 
         dishManager.delete(expectedMainDish);
+        componentManager.deleteAllComponents();
 
 
 
+
+    }
+
+    @Test
+    public void test_createFewDishesInDatabaseWithCommonComponents() {
+        List<Component> exampleComponents = prepareExampleComponents();
+        MainDish firstDish = new MainDish("exampleDish1");
+        firstDish.setComponents(exampleComponents);
+        MainDish secondDish = new MainDish("exampleDish2");
+        secondDish.setComponents(exampleComponents);
+
+        dishManager.create(firstDish);
+        dishManager.create(secondDish);
+        firstDish.setId(mainDishDAO.get(new DishesByName("exampleDish1")).get(0).getId());
+        secondDish.setId(mainDishDAO.get(new DishesByName("exampleDish2")).get(0).getId());
+
+        MainDish actualMainDish1 = dishManager.get(firstDish.getId());
+        MainDish actualMainDish2 = dishManager.get(secondDish.getId());
+        List<Component> components = componentDAO.get(new AllComponents());
+
+        assertAll(() -> {
+            assertEquals(actualMainDish1.getComponents(), actualMainDish2.getComponents());
+            assertEquals(components, actualMainDish1.getComponents());
+            assertEquals(components, actualMainDish2.getComponents());
+        });
+
+        dishManager.delete(actualMainDish1);
+        dishManager.delete(actualMainDish2);
+        componentManager.deleteAllComponents();
 
     }
 
