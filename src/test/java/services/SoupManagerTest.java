@@ -112,3 +112,26 @@ class SoupManagerTest {
         soupManager.delete(secondSoup);
         componentManager.deleteAllComponents();
     }
+
+    @Test
+    public void test_editSoupInDatabase() {
+
+        List<Component> exampleComponents = prepareExampleComponents();
+        List<Component> newComponents = new ArrayList<>();
+        newComponents.add(new Component("oneComponent",100,new Unit("unit")));
+
+        Soup soup = new Soup("exampleSoup1");
+        soup.setComponents(exampleComponents);
+
+        soupManager.create(soup);
+        soup.setId(soupDAO.get(new SoupsByName("exampleSoup1")).get(0).getId());
+
+        soup.setComponents(newComponents);
+
+        soupManager.edit(soup);
+
+        assertEquals(newComponents, soupManager.get(soup.getId()).getComponents());
+
+        soupManager.delete(soup);
+        componentManager.deleteAllComponents();
+    }
