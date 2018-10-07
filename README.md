@@ -21,6 +21,7 @@ https://whats-for-dinner-app.herokuapp.com/
 - Persistence api
 - custom implementation DAO (without Spring/Hibernate)
 - custom implementation ORM (manual mapping objects)
+- Design patterns(Singleton, Repository)
 - Postgres
 - Github
 - Javascript (ES6 with classes)
@@ -52,3 +53,10 @@ You should fill data in database.properties in src/TEST/resources/database.prope
 ### version 1.01 (beta)
 - add heroku deployment
 
+### version 1.2
+- Fix problem with id duplicates in database, now all entities has one sequence
+- Now there is one common space for all alert messages on the top
+- Fix problem with code duplicate in Criteria package
+- Add polish charset handling in responses
+- Fix bug connected with delete specified meal from database, now its possible to delete every meal in database
+- Change architecture of application, now there is fully separated back-end with front-end
