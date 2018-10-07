@@ -80,6 +80,23 @@ class ComponentManagerTest {
         assertEquals(expectedComponents, actualComponents);
     }
 
+    @Test
+    public void test_deleteComponentsOfSpecifiedSoup() {
+        List<Component> components = prepareExampleComponents();
+        Soup soup = new Soup("exampleSoup");
+        soup.setComponents(components);
+
+        soupManager.create(soup);
+        soup = soupDAO.get(new SoupsByName("exampleSoup")).get(0);
+        componentManager.deleteComponentsOfSoup(soup);
+
+        List<Component> actualComponents = soupManager.get(soup.getId()).getComponents();
+
+        assertEquals(0, actualComponents.size());
+
+        soupManager.delete(soup);
+    }
+
 
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
