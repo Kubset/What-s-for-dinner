@@ -2,6 +2,7 @@ package services;
 
 import Criteria.*;
 import DAO.*;
+import Mappers.ComponentMapper;
 import Mappers.MainDishMapper;
 import Mappers.Mapper;
 import Model.*;
@@ -49,12 +50,6 @@ public class ComponentManager {
         SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
 
         List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(soup.getId()));
-
-        System.out.println(soupComponents);
-        for(int i=0; i<soupComponents.size(); i++) {
-            System.out.println(soupComponents.get(i).getId());
-
-        }
 
         for(SoupComponent sc : soupComponents) {
             soupComponentDAO.delete(sc);
@@ -113,4 +108,14 @@ public class ComponentManager {
 
     }
 
+    public void deleteAllComponents() {
+        ComponentDAO componentDAO = new ComponentDAO();
+        Mapper<Component> mapper = new ComponentMapper();
+
+        List<Component> components = componentDAO.get(new AllComponents());
+
+        for(Component component : components) {
+            componentDAO.delete(component);
+        }
+    }
 }
