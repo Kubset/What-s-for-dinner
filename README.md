@@ -15,6 +15,12 @@ in nearest future will be added account feature
 ## Deployment
 https://whats-for-dinner-app.herokuapp.com/
 
+## Architecture
+#### Database
+![Alt text](diagrams/ERD.png?raw=true "ERD")
+- all tables has one sequence
+- favourite field is for future use
+
 ## Used technologies/skills
 - Java 8
 - Servlets
