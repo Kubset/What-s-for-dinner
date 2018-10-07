@@ -9,6 +9,14 @@ public class Soup {
     private List<Component> components;
     private String recipe;
 
+    public Soup() {
+    }
+
+    public Soup(int id) {
+        this.id = id;
+        this.favourite = -1;
+    }
+
     public Soup(String name) {
         this.name = name;
         this.favourite = -1;
