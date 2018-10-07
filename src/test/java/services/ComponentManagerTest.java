@@ -136,6 +136,24 @@ class ComponentManagerTest {
 
     }
 
+    @Test
+    public void test_addComponentsToSpecifiedDish() {
+        List<Component> expectedComponents = prepareExampleComponents();
+        MainDish mainDish = new MainDish("exampleDish");
+        mainDishDAO.add(mainDish);
+        mainDish = mainDishDAO.get(new DishesByName("exampleDish")).get(0);
+        mainDish.setComponents(expectedComponents);
+
+        componentManager.addComponentsToDish(mainDish);
+
+        List<Component> actualComponents = dishManager.get(mainDish.getId()).getComponents();
+
+        assertEquals(expectedComponents, actualComponents);
+
+        dishManager.delete(mainDish);
+
+    }
+
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
         for(int i=0 ;i<5; i++) {
