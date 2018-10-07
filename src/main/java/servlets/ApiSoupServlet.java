@@ -10,8 +10,10 @@ import Mappers.Mapper;
 import Mappers.SoupMapper;
 import Model.Component;
 import Model.Soup;
+import com.google.gson.Gson;
 import services.SoupManager;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,23 +39,53 @@ public class ApiSoupServlet extends HttpServlet {
             json = mapper.mapToJson(soups);
         }
 
+
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        Gson gson = new Gson();
+        String json = req.getReader().readLine();
+        SoupManager soupManager = new SoupManager();
+
+        Soup soup = gson.fromJson(json, Soup.class);
+        soupManager.create(soup);
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        Gson gson = new Gson();
+        String json = req.getReader().readLine();
+        SoupManager soupManager = new SoupManager();
+
+        Soup soup = gson.fromJson(json, Soup.class);
+        soupManager.edit(soup);
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        String[] URL = req.getRequestURI().toString().split("/");
+        SoupManager soupManager = new SoupManager();
+
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            int id = Integer.valueOf(URL[3]);
+            soupManager.delete(new Soup(id));
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
     }
+
 }
 
