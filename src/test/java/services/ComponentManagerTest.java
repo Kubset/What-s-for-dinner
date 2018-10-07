@@ -97,6 +97,26 @@ class ComponentManagerTest {
         soupManager.delete(soup);
     }
 
+    @Test
+    public void test_deleteComponentsOfSpecifiedDish() {
+        List<Component> components = prepareExampleComponents();
+        MainDish mainDish = new MainDish("exampleDish");
+        mainDish.setComponents(components);
+
+        dishManager.create(mainDish);
+        mainDish = mainDishDAO.get(new DishesByName("exampleDish")).get(0);
+
+        componentManager.deleteComponentsOfDish(mainDish);
+
+        List<Component> actualComponents = dishManager.get(mainDish.getId()).getComponents();
+
+        assertEquals(0, actualComponents.size());
+
+        dishManager.delete(mainDish);
+
+
+    }
+
 
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
