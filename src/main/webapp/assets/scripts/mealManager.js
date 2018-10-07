@@ -32,3 +32,17 @@ class MealManager {
         form.appendChild(createHiddenNode("id", id))
 
     }
+
+    static deleteMeal(element) {
+        element = element.parentNode;
+        ComponentManager.deleteComponent(element);
+
+        let id = element.getAttribute("id");
+        element = element.parentNode.parentNode;
+        let mealName = element.getElementsByTagName("th")[0].getAttribute("class");
+
+        let databaseManager = new DatabaseManager;
+        databaseManager.deleteElementFromDatabase(mealName, id);
+    }
+
+}
