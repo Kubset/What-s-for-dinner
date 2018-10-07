@@ -61,7 +61,15 @@ public class ApiSoupServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        Gson gson = new Gson();
+        String json = req.getReader().readLine();
+        SoupManager soupManager = new SoupManager();
+
+        Soup soup = gson.fromJson(json, Soup.class);
+        soupManager.edit(soup);
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+
     }
 
     @Override
