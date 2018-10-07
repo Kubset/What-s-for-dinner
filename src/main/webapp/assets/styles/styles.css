@@ -8,7 +8,7 @@
     margin-right: 3px;
     font-size: 200%;
     color: #5a6268;
-  
+
 }
 .small-trash,.small-sync, .small-pen-square{
     margin-right: 40px;
@@ -16,10 +16,15 @@
     width: 20px;
 }
 
-.soup, .dish {
-    width:130px;
+.actions {
+    max-width: 100px;
 }
 
-th {
+.name {
     max-width: 150px;
 }
+
+.recipes, .components{
+    min-width: 180px;
+}
+
