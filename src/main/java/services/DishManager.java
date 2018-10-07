@@ -79,4 +79,18 @@ public class DishManager {
        componentManager.deleteComponentsOfDish(mainDish);
        componentManager.addComponentsToDish(mainDish);
     }
+
+    public void delete(MainDish mainDish) {
+       MainDishDAO mainDishDAO = new MainDishDAO();
+       DishComponentDAO dishComponentDAO = new DishComponentDAO();
+       SqlCriteria criteria = new DishComponentByDishId(mainDish.getId());
+
+       List<DishComponent> dishComponents = dishComponentDAO.get(criteria);
+
+       for(DishComponent dc : dishComponents) {
+           dishComponentDAO.delete(dc);
+       }
+
+       mainDishDAO.delete(mainDish);
+    }
 }
