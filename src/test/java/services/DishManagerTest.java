@@ -94,6 +94,33 @@ class DishManagerTest {
         assertEquals(expectedDishes, allDishes);
 
     }
+
+    @Test
+    public void test_getAllDishes() {
+        List<Component> exampleComponents = prepareExampleComponents();
+        MainDish firstDish = new MainDish("exampleDish1");
+        firstDish.setComponents(exampleComponents);
+        MainDish secondDish = new MainDish("exampleDish2");
+        secondDish.setComponents(exampleComponents);
+
+        dishManager.create(firstDish);
+        dishManager.create(secondDish);
+        firstDish.setId(mainDishDAO.get(new DishesByName("exampleDish1")).get(0).getId());
+        secondDish.setId(mainDishDAO.get(new DishesByName("exampleDish2")).get(0).getId());
+
+        List<MainDish> actualDishes = dishManager.getAll();
+
+        assertAll(() -> {
+            assertEquals(actualDishes.get(0), firstDish);
+            assertEquals(actualDishes.get(1), secondDish);
+        });
+
+        dishManager.delete(firstDish);
+        dishManager.delete(secondDish);
+        componentManager.deleteAllComponents();
+
+    }
+
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
         for(int i=0 ;i<5; i++) {
