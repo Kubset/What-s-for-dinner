@@ -29,4 +29,33 @@ class ComponentManagerTest {
     public static void setup() {
         ConnectionProvider.setPropertiesPath("src/test/resources");
     }
+
+    @Test
+    public void test_getComponentsOfSpecifiedSoup() {
+        List<Component> expectedComponents = prepareExampleComponents();
+
+        Soup soup = new Soup("exampleSoup");
+        soup.setComponents(expectedComponents);
+
+        soupManager.create(soup);
+        soup = soupDAO.get(new SoupsByName("exampleSoup")).get(0);
+
+        List<Component> actualComponents = componentManager.getComponentsOfSoup(soup.getId());
+
+        assertEquals(expectedComponents, actualComponents);
+
+        soupManager.delete(soup);
+    }
+
+
+    private List<Component> prepareExampleComponents() {
+        List<Component> components = new ArrayList<>();
+        for(int i=0 ;i<5; i++) {
+            components.add(new Component("exampleComponent"+i, i, new Unit("unit")));
+        }
+
+        return components;
+    }
+
+
 }
