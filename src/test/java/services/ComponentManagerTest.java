@@ -117,6 +117,24 @@ class ComponentManagerTest {
 
     }
 
+    @Test
+    public void test_addComponentsToSpecifiedSoup() {
+        List<Component> expectedComponents = prepareExampleComponents();
+        Soup soup = new Soup("exampleSoup");
+        soupDAO.add(soup);
+        soup = soupDAO.get(new SoupsByName("exampleSoup")).get(0);
+        soup.setComponents(expectedComponents);
+
+        componentManager.addComponentsToSoup(soup);
+
+        List<Component> actualComponents = soupManager.get(soup.getId()).getComponents();
+
+        assertEquals(expectedComponents, actualComponents);
+
+        soupManager.delete(soup);
+
+
+    }
 
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
