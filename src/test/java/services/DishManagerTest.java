@@ -33,7 +33,7 @@ class DishManagerTest {
     }
 
     @Test
-    public void test_createMainDishInDataBase() {
+    public void test_createMainDishInDatabase() {
         List<Component> exampleComponents = prepareExampleComponents();
         MainDish expectedMainDish = new MainDish("exampleDish");
         expectedMainDish.setComponents(exampleComponents);
@@ -96,7 +96,7 @@ class DishManagerTest {
     }
 
     @Test
-    public void test_getAllDishes() {
+    public void test_getAllDishesFromDatabase() {
         List<Component> exampleComponents = prepareExampleComponents();
         MainDish firstDish = new MainDish("exampleDish1");
         firstDish.setComponents(exampleComponents);
@@ -122,7 +122,7 @@ class DishManagerTest {
     }
 
     @Test
-    public void test_editDish() {
+    public void test_editDishinDatabase() {
 
         List<Component> exampleComponents = prepareExampleComponents();
         List<Component> newComponents = new ArrayList<>();
