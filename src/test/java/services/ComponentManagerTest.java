@@ -72,6 +72,14 @@ class ComponentManagerTest {
         dishManager.delete(mainDish);
     }
 
+    @Test
+    public void test_getComponentsOfNotPresentMainDish() {
+        List<Component> expectedComponents = new ArrayList<>();
+        List<Component> actualComponents = componentManager.getComponentsOfDish(0);
+
+        assertEquals(expectedComponents, actualComponents);
+    }
+
 
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
