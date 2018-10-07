@@ -85,5 +85,19 @@ public class SoupManager {
        componentManager.addComponentsToSoup(soup);
     }
 
+    public void delete(Soup soup) {
+       SoupDAO soupDAO = new SoupDAO();
+       SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
+       SqlCriteria criteria = new SoupComponentBySoupId(soup.getId());
+
+       List<SoupComponent> soupComponents = soupComponentDAO.get(criteria);
+
+       for(SoupComponent sc : soupComponents) {
+           soupComponentDAO.delete(sc);
+       }
+
+       soupDAO.delete(soup);
+    }
+
 
 }
