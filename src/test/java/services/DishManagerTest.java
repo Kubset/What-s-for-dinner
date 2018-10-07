@@ -144,6 +144,26 @@ class DishManagerTest {
         componentManager.deleteAllComponents();
     }
 
+    @Test
+    public void test_deleteDishFromDatabase() {
+        List<Component> exampleComponents = prepareExampleComponents();
+
+        MainDish mainDish = new MainDish("exampleDish1");
+        mainDish.setComponents(exampleComponents);
+
+        dishManager.create(mainDish);
+        mainDish.setId(mainDishDAO.get(new DishesByName("exampleDish1")).get(0).getId());
+
+        dishManager.delete(mainDish);
+
+        List<MainDish> actualDishes = dishManager.getAll();
+
+        assertEquals(0, actualDishes.size());
+
+        componentManager.deleteAllComponents();
+
+    }
+
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
         for(int i=0 ;i<5; i++) {
