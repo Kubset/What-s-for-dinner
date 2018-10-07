@@ -65,7 +65,7 @@ public class DishManager {
 
             mainDish.setComponents(components);
         } catch (IndexOutOfBoundsException e) {
-            System.err.println("Soup with this ID does no exist");
+            System.err.println("MainDish with this ID does no exist");
         }
         return mainDish;
     }
