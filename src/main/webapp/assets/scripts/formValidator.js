@@ -86,6 +86,14 @@ class FormValidator {
 
     static validateByRegex(str) {
         let regex = /^[^@#!$%&*^<>~]*$/;
-        return regex.test(str);
+
+        if(!regex.test(str)) {
+            ContentInjector.addAlertMessage("Illegal input data, You can't use special characters like:\n" +
+                "@#!$%^&*~<>/\\", "alert-danger");
+            return false;
+        }
+        return true;
+    }
+
     }
 }
