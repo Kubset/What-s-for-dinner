@@ -48,4 +48,15 @@ class DatabaseManager {
 
     }
 
+    addElementToDatabase(elementName, json) {
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('POST', "/api/" + elementName, false);
+        xhr.onreadystatechange = function () {
+            if (this.readyState !== 4) return;
+            if (this.status !== 200) return;
+        };
+        xhr.send(JSON.stringify(json));
+    }
+
 }
