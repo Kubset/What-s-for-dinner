@@ -122,5 +122,25 @@ class FormValidator {
         }
     }
 
+
+    static prepareJsonForm(componentNames, componentCounts, componentUnits, mealName, recipe, id) {
+        let json = {}
+        let jsonComponents = {};
+        json["name"] = mealName;
+        json["recipe"] = recipe;
+        json["favourite"] = -1;
+        json["id"] = id;
+        json["components"] = [];
+
+        for(let i=0; i<componentNames.length; i++) {
+            let component = {};
+            component["name"] = componentNames[i].value;
+            component["count"] = componentCounts[i].value;
+            component["unit"] = componentUnits[i].value;
+            json["components"][i] = component;
+        }
+
+        console.log(json);
+
     }
 }
