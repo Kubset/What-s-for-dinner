@@ -35,4 +35,17 @@ class DatabaseManager {
 
         return json;
     }
+
+    deleteElementFromDatabase(elementName, id) {
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('DELETE', "/api/" + elementName + "/" + id, false);
+        xhr.onreadystatechange = function () {
+            if (this.readyState !== 4) return;
+            if (this.status !== 200) return;
+        };
+        xhr.send();
+
+    }
+
 }
