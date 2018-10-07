@@ -47,6 +47,14 @@ class ComponentManagerTest {
         soupManager.delete(soup);
     }
 
+    @Test
+    public void test_getComponentsOfNotPresentSoup() {
+        List<Component> expectedComponents = new ArrayList<>();
+        List<Component> actualComponents = componentManager.getComponentsOfSoup(0);
+
+        assertEquals(expectedComponents, actualComponents);
+    }
+
 
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
