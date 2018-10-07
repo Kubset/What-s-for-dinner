@@ -86,6 +86,14 @@ class DishManagerTest {
 
     }
 
+    @Test
+    public void test_getAllDishesFromEmptyDatabase() {
+        List<MainDish> expectedDishes = new ArrayList<>();
+        List<MainDish> allDishes = dishManager.getAll();
+
+        assertEquals(expectedDishes, allDishes);
+
+    }
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
         for(int i=0 ;i<5; i++) {
