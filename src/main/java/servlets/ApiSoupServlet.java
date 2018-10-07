@@ -10,8 +10,10 @@ import Mappers.Mapper;
 import Mappers.SoupMapper;
 import Model.Component;
 import Model.Soup;
+import com.google.gson.Gson;
 import services.SoupManager;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +48,15 @@ public class ApiSoupServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        Gson gson = new Gson();
+        String json = req.getReader().readLine();
+        SoupManager soupManager = new SoupManager();
+
+        Soup soup = gson.fromJson(json, Soup.class);
+        soupManager.create(soup);
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+
     }
 
     @Override
