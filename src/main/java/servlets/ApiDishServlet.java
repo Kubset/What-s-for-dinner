@@ -10,7 +10,9 @@ import Mappers.Mapper;
 import Mappers.SoupMapper;
 import Model.MainDish;
 import Model.Soup;
+import com.google.gson.Gson;
 import services.DishManager;
+import sun.applet.Main;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +47,15 @@ public class ApiDishServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        Gson gson = new Gson();
+        String json = req.getReader().readLine();
+        DishManager dishManager = new DishManager();
+
+        MainDish mainDish = gson.fromJson(json, MainDish.class);
+        dishManager.create(mainDish);
+
+        resp.setStatus(HttpServletResponse.SC_OK);
+
     }
 
     @Override
