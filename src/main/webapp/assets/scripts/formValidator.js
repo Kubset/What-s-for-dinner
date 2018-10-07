@@ -103,5 +103,15 @@ class FormValidator {
         return true;
     }
 
+    static validateMealInDatabase(mealName, formName) {
+        let databaseManager = new DatabaseManager();
+        let meals = databaseManager.getCollectionFromDatabase(formName, "name");
+        if (meals.contains(mealName.value)) {
+            ContentInjector.addAlertMessage("Meal with this name already exist", "alert-danger");
+            return false;
+        }
+        return true;
+    }
+
     }
 }
