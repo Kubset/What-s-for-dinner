@@ -74,7 +74,18 @@ public class ApiSoupServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        String[] URL = req.getRequestURI().toString().split("/");
+        SoupManager soupManager = new SoupManager();
+
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            int id = Integer.valueOf(URL[3]);
+            soupManager.delete(new Soup(id));
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
     }
+
 }
 
