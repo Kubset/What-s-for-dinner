@@ -121,6 +121,29 @@ class DishManagerTest {
 
     }
 
+    @Test
+    public void test_editDish() {
+
+        List<Component> exampleComponents = prepareExampleComponents();
+        List<Component> newComponents = new ArrayList<>();
+        newComponents.add(new Component("oneComponent",100,new Unit("unit")));
+
+        MainDish mainDish = new MainDish("exampleDish1");
+        mainDish.setComponents(exampleComponents);
+
+        dishManager.create(mainDish);
+        mainDish.setId(mainDishDAO.get(new DishesByName("exampleDish1")).get(0).getId());
+
+        mainDish.setComponents(newComponents);
+
+        dishManager.edit(mainDish);
+
+        assertEquals(newComponents, dishManager.get(mainDish.getId()).getComponents());
+
+        dishManager.delete(mainDish);
+        componentManager.deleteAllComponents();
+    }
+
     private List<Component> prepareExampleComponents() {
         List<Component> components = new ArrayList<>();
         for(int i=0 ;i<5; i++) {
