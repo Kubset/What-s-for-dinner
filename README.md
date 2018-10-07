@@ -41,8 +41,8 @@ You should fill data in database.properties in src/TEST/resources/database.prope
 ##### added features
 - add soup/main dish to database
 - during add/edit meal possibility to choose one of present product in database, or just create new product
-- edit soup/main dish to database
-- delete soup/main dish to database
+- edit soup/main dish in database
+- delete soup/main dish from database
 - generate dinner list for few specified days (e.g monday,friday,sunday)
 - edit generated list for next week in real-time
 - generate PDF shopping list
@@ -55,8 +55,10 @@ You should fill data in database.properties in src/TEST/resources/database.prope
 
 ### version 1.2
 - Fix problem with id duplicates in database, now all entities has one sequence
-- Now there is one common space for all alert messages on the top
 - Fix problem with code duplicate in Criteria package
 - Add polish charset handling in responses
 - Fix bug connected with delete specified meal from database, now its possible to delete every meal in database
 - Change architecture of application, now there is fully separated back-end with front-end
+- Make more responsible tables, now long recipe do not cover Components column
+- Make more responsible navbar, now its possible to use application on mobile devices
+- Make Tests for back-end (services, DAO), now tests are performed on own local database
