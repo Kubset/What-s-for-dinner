@@ -61,6 +61,9 @@ public class ComponentManager implements Service<Component>{
          componentDAO.update(component);
      }
 
+     public void delete(Component component) {
+        componentDAO.delete(component);
+     }
 
      public List<Component> getComponentsOfSoup(int soupId) {
         List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(soupId));
