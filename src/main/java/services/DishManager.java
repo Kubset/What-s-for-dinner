@@ -9,13 +9,19 @@ import Model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DishManager {
+public class DishManager implements Service<MainDish>{
+
+    private MainDishDAO mainDishDAO;
+    private DishComponentDAO dishComponentDAO;
+    private ComponentDAO componentDAO;
+
+    public DishManager() {
+        this.mainDishDAO = new MainDishDAO();
+        this.dishComponentDAO = new DishComponentDAO();
+        this.componentDAO = new ComponentDAO();
+    }
 
     public void create(MainDish mainDish) {
-        MainDishDAO mainDishDAO = new MainDishDAO();
-        ComponentDAO componentDAO = new ComponentDAO();
-        DishComponentDAO dishComponentDAO = new DishComponentDAO();
-
         mainDishDAO.add(mainDish);
 
         SqlCriteria dishCriteria = new DishesByName(mainDish.getName());
@@ -36,7 +42,6 @@ public class DishManager {
     }
 
     public List<MainDish> getAll() {
-        MainDishDAO mainDishDAO = new MainDishDAO();
         Mapper<MainDish> mapper = new MainDishMapper();
         ComponentManager componentManager = new ComponentManager();
 
@@ -50,9 +55,6 @@ public class DishManager {
     }
 
     public MainDish get(int id) {
-        MainDishDAO mainDishDAO = new MainDishDAO();
-        ComponentDAO componentDAO = new ComponentDAO();
-        DishComponentDAO dishComponentDAO = new DishComponentDAO();
         ComponentManager componentManager = new ComponentManager();
 
         MainDish mainDish = null;
@@ -71,8 +73,6 @@ public class DishManager {
     }
 
     public void edit(MainDish mainDish) {
-       MainDishDAO mainDishDAO = new MainDishDAO();
-       DishComponentDAO dishComponentDAO = new DishComponentDAO();
        ComponentManager componentManager = new ComponentManager();
 
        mainDishDAO.update(mainDish);
@@ -81,8 +81,6 @@ public class DishManager {
     }
 
     public void delete(MainDish mainDish) {
-       MainDishDAO mainDishDAO = new MainDishDAO();
-       DishComponentDAO dishComponentDAO = new DishComponentDAO();
        SqlCriteria criteria = new DishComponentByDishId(mainDish.getId());
 
        List<DishComponent> dishComponents = dishComponentDAO.get(criteria);
@@ -92,5 +90,19 @@ public class DishManager {
        }
 
        mainDishDAO.delete(mainDish);
+    }
+
+    public void deleteAll() {
+        List<MainDish> mainDishes = mainDishDAO.get(new AllDishes());
+        List<DishComponent> dishComponents = dishComponentDAO.get(new AllDishComponents());
+
+        for(MainDish md : mainDishes) {
+            mainDishDAO.delete(md);
+        }
+
+        for(DishComponent dc : dishComponents) {
+            dishComponentDAO.delete(dc);
+        }
+
     }
 }
