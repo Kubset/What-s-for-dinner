@@ -12,7 +12,7 @@ public class UnitDAO extends AbstractDAO<Unit> {
     public UnitDAO() {
         ADD_QUERY = "INSERT INTO units (name) VALUES (?);";
         EDIT_QUERY = "UPDATE units SET name=? WHERE unit_id=?;";
-        DELETE_QUERY = "DELETE FROM units WHERE name=?;";
+        DELETE_QUERY = "DELETE FROM units WHERE unit_id=?;";
         super.mapper = new UnitMapper();
     }
 
