@@ -57,6 +57,10 @@ public class ComponentManager implements Service<Component>{
         componentDAO.add(component);
     }
 
+    public void edit(Component component) {
+         componentDAO.update(component);
+     }
+
 
      public List<Component> getComponentsOfSoup(int soupId) {
         List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(soupId));
