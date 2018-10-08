@@ -35,6 +35,12 @@ public class ComponentManager implements Service<Component>{
         }
     }
 
+    public List<Component> getAll() {
+        SqlCriteria criteria = new AllComponents();
+
+        return componentDAO.get(criteria);
+    }
+
 
      public List<Component> getComponentsOfSoup(int soupId) {
         List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(soupId));
