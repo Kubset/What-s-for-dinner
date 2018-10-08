@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionProvider {
-    private static String path = "./src/main/resources";
+    private static String path = "src/resources";
 
     private static final String DB_PROPERTIES_FILE;
     private static final Properties DB_CONNECTION_PROPERTIES;
