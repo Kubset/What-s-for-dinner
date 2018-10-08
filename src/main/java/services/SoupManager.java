@@ -97,5 +97,18 @@ public class SoupManager implements Service<Soup>{
        soupDAO.delete(soup);
     }
 
+    public void deleteAll() {
+        SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
 
+        List<Soup> soups = soupDAO.get(new AllSoups());
+        List<SoupComponent> dishComponents = soupComponentDAO.get(new AllSoupComponents());
+
+        for(Soup s : soups) {
+            soupDAO.delete(s);
+        }
+
+        for(SoupComponent sc : dishComponents) {
+            soupComponentDAO.delete(sc);
+        }
+    }
 }
