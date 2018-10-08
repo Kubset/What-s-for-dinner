@@ -38,36 +38,52 @@ public class ApiDishServlet extends HttpServlet {
             json = mapper.mapToJson(mainDish);
         }
 
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(json);
+        if(!json.equals("null")) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.setContentType("text/html; charset=UTF-8");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(json);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
         Gson gson = new Gson();
-        String json = req.getReader().readLine();
         DishManager dishManager = new DishManager();
 
-        MainDish mainDish = gson.fromJson(json, MainDish.class);
-        dishManager.create(mainDish);
-
-        resp.setStatus(HttpServletResponse.SC_OK);
+        if(URL.length == 3) {
+            String json = req.getReader().readLine();
+            MainDish mainDish = gson.fromJson(json, MainDish.class);
+            dishManager.create(mainDish);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
+
         Gson gson = new Gson();
-        String json = req.getReader().readLine();
         DishManager dishManager = new DishManager();
+        Mapper<MainDish> mapper = new MainDishMapper();
 
-        MainDish mainDish = gson.fromJson(json, MainDish.class);
-        dishManager.edit(mainDish);
-
-        resp.setStatus(HttpServletResponse.SC_OK);
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            String json = req.getReader().readLine();
+            MainDish mainDish = gson.fromJson(json, MainDish.class);
+            mainDish.setId(Integer.parseInt(URL[3]));
+            dishManager.edit(mainDish);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
     }
 
@@ -79,6 +95,9 @@ public class ApiDishServlet extends HttpServlet {
         if(URL.length == 4 && URL[3].matches("\\d+")) {
             int id = Integer.valueOf(URL[3]);
             dishManager.delete(new MainDish(id));
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else if(URL.length == 3) {
+            dishManager.deleteAll();
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);

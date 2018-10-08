@@ -32,43 +32,59 @@ public class ApiSoupServlet extends HttpServlet {
         String json;
 
         if(URL.length == 4 && URL[3].matches("\\d+")) {
-                Soup soup = soupManager.get(Integer.parseInt(URL[3]));
-                json = mapper.mapToJson(soup);
+            Soup soup = soupManager.get(Integer.parseInt(URL[3]));
+            json = mapper.mapToJson(soup);
         } else {
             List<Soup> soups = soupManager.getAll();
             json = mapper.mapToJson(soups);
         }
 
-
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(json);
+        if(!json.equals("null")) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.setContentType("text/html; charset=UTF-8");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(json);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
         Gson gson = new Gson();
-        String json = req.getReader().readLine();
         SoupManager soupManager = new SoupManager();
 
-        Soup soup = gson.fromJson(json, Soup.class);
-        soupManager.create(soup);
-
-        resp.setStatus(HttpServletResponse.SC_OK);
+        if(URL.length == 3) {
+            String json = req.getReader().readLine();
+            Soup soup = gson.fromJson(json, Soup.class);
+            soupManager.create(soup);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
+
         Gson gson = new Gson();
-        String json = req.getReader().readLine();
         SoupManager soupManager = new SoupManager();
+        Mapper<Soup> mapper = new SoupMapper();
 
-        Soup soup = gson.fromJson(json, Soup.class);
-        soupManager.edit(soup);
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            String json = req.getReader().readLine();
+            Soup soup = gson.fromJson(json, Soup.class);
+            soup.setId(Integer.parseInt(URL[3]));
+            soupManager.edit(soup);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
-        resp.setStatus(HttpServletResponse.SC_OK);
 
     }
 
@@ -80,6 +96,9 @@ public class ApiSoupServlet extends HttpServlet {
         if(URL.length == 4 && URL[3].matches("\\d+")) {
             int id = Integer.valueOf(URL[3]);
             soupManager.delete(new Soup(id));
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else if(URL.length == 3) {
+            soupManager.deleteAll();
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
