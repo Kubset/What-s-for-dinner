@@ -25,6 +25,16 @@ public class ComponentManager implements Service<Component>{
 
 
 
+    public void deleteAll() {
+        Mapper<Component> mapper = new ComponentMapper();
+
+        List<Component> components = componentDAO.get(new AllComponents());
+
+        for (Component component : components) {
+            componentDAO.delete(component);
+        }
+    }
+
 
      public List<Component> getComponentsOfSoup(int soupId) {
         List<SoupComponent> soupComponents = soupComponentDAO.get(new SoupComponentBySoupId(soupId));
