@@ -49,7 +49,7 @@ class SoupManagerTest {
         });
 
         soupManager.delete(expectedSoup);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
     }
 
     @Test
@@ -77,7 +77,7 @@ class SoupManagerTest {
 
         soupManager.delete(actualSoup1);
         soupManager.delete(actualSoup2);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
     }
 
     @Test
@@ -110,7 +110,7 @@ class SoupManagerTest {
 
         soupManager.delete(firstSoup);
         soupManager.delete(secondSoup);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
     }
 
     @Test
@@ -133,7 +133,7 @@ class SoupManagerTest {
         assertEquals(newComponents, soupManager.get(soup.getId()).getComponents());
 
         soupManager.delete(soup);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
     }
 
     @Test
@@ -152,7 +152,7 @@ class SoupManagerTest {
 
         assertEquals(0, actualSoups.size());
 
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
 
     }
 

@@ -50,7 +50,7 @@ class DishManagerTest {
         });
 
         dishManager.delete(expectedMainDish);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
 
 
 
@@ -82,7 +82,7 @@ class DishManagerTest {
 
         dishManager.delete(actualMainDish1);
         dishManager.delete(actualMainDish2);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
 
     }
 
@@ -117,7 +117,7 @@ class DishManagerTest {
 
         dishManager.delete(firstDish);
         dishManager.delete(secondDish);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
 
     }
 
@@ -141,7 +141,7 @@ class DishManagerTest {
         assertEquals(newComponents, dishManager.get(mainDish.getId()).getComponents());
 
         dishManager.delete(mainDish);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
     }
 
     @Test
@@ -160,7 +160,7 @@ class DishManagerTest {
 
         assertEquals(0, actualDishes.size());
 
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
 
     }
 
