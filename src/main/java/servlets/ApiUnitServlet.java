@@ -69,6 +69,21 @@ public class ApiUnitServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
+
+        Gson gson = new Gson();
+        UnitManager unitManager = new UnitManager();
+        Mapper<Unit> mapper = new UnitMapper();
+
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            String json = req.getReader().readLine();
+            Unit unit = gson.fromJson(json, Unit.class);
+            unit.setId(Integer.parseInt(URL[3]));
+            unitManager.edit(unit);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 
     @Override
