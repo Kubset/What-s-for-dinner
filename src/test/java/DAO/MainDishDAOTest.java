@@ -4,6 +4,7 @@ import Criteria.AllDishes;
 import Criteria.DishesByName;
 import Criteria.SqlCriteria;
 import Model.MainDish;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,11 @@ class MainDishDAOTest {
     private static List<MainDish> dishesBefore;
     private static List<MainDish> dishesAfter;
     private static List<MainDish> exampleDishes = new ArrayList<>();
+
+    @BeforeAll
+    public static void setup() {
+        ConnectionProvider.setPropertiesPath("src/test/resources");
+    }
 
     @DisplayName("Add multiple elements to database")
     @Test

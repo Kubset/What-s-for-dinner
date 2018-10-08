@@ -3,4 +3,5 @@ DROP TABLE soup CASCADE;
 DROP TABLE components CASCADE;
 DROP TABLE dish_components CASCADE;
 DROP TABLE soup_components CASCADE;
-DROP TABLE units;
+DROP TABLE units CASCADE;
+DROP SEQUENCE common_seq;

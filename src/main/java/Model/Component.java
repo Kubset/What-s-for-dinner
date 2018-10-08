@@ -7,6 +7,10 @@ public class Component {
     private Integer count;
     private Unit unit;
 
+    public Component(int id) {
+        this.id = id;
+    }
+
     public Component(String name) {
         this.name = name;
     }

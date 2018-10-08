@@ -15,13 +15,19 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class SoupManager {
+public class SoupManager implements Service<Soup>{
+
+    private SoupDAO soupDAO;
+    private SoupComponentDAO soupComponentDAO;
+    private ComponentDAO componentDAO;
+
+    public SoupManager() {
+        this.soupDAO = new SoupDAO();
+        this.soupComponentDAO = new SoupComponentDAO();
+        this.componentDAO = new ComponentDAO();
+    }
 
     public void create(Soup soup) {
-        SoupDAO soupDAO = new SoupDAO();
-        ComponentDAO componentDAO = new ComponentDAO();
-        SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
-
         soupDAO.add(soup);
 
         SqlCriteria soupCriteria = new SoupsByName(soup.getName());
@@ -43,7 +49,6 @@ public class SoupManager {
 
     public List<Soup> getAll() {
         Mapper<Soup> mapper = new SoupMapper();
-        SoupDAO soupDAO = new SoupDAO();
         ComponentManager componentManager = new ComponentManager();
 
         List<Soup> soups = soupDAO.get(new AllSoups());
@@ -56,9 +61,6 @@ public class SoupManager {
     }
 
     public Soup get(int id) {
-        SoupDAO soupDAO = new SoupDAO();
-        ComponentDAO componentDAO = new ComponentDAO();
-        SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
         ComponentManager componentManager = new ComponentManager();
         Soup soup = null;
 
@@ -76,8 +78,6 @@ public class SoupManager {
     }
 
     public void edit(Soup soup) {
-       SoupDAO soupDAO = new SoupDAO();
-       SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
        ComponentManager componentManager = new ComponentManager();
 
        soupDAO.update(soup);
@@ -85,5 +85,30 @@ public class SoupManager {
        componentManager.addComponentsToSoup(soup);
     }
 
+    public void delete(Soup soup) {
+       SqlCriteria criteria = new SoupComponentBySoupId(soup.getId());
 
+       List<SoupComponent> soupComponents = soupComponentDAO.get(criteria);
+
+       for(SoupComponent sc : soupComponents) {
+           soupComponentDAO.delete(sc);
+       }
+
+       soupDAO.delete(soup);
+    }
+
+    public void deleteAll() {
+        SoupComponentDAO soupComponentDAO = new SoupComponentDAO();
+
+        List<Soup> soups = soupDAO.get(new AllSoups());
+        List<SoupComponent> dishComponents = soupComponentDAO.get(new AllSoupComponents());
+
+        for(Soup s : soups) {
+            soupDAO.delete(s);
+        }
+
+        for(SoupComponent sc : dishComponents) {
+            soupComponentDAO.delete(sc);
+        }
+    }
 }

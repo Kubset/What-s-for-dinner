@@ -9,6 +9,11 @@ public class MainDish {
     private List<Component> components;
     private String recipe;
 
+    public MainDish(int id) {
+        this.id = id;
+        this.favourite = -1;
+    }
+
     public MainDish(String name) {
         this.name = name;
         this.favourite = -1;
