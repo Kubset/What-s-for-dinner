@@ -97,6 +97,9 @@ public class ApiSoupServlet extends HttpServlet {
             int id = Integer.valueOf(URL[3]);
             soupManager.delete(new Soup(id));
             resp.setStatus(HttpServletResponse.SC_OK);
+        } else if(URL.length == 3) {
+            soupManager.deleteAll();
+            resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
