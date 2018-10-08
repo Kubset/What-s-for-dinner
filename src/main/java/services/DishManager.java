@@ -91,4 +91,18 @@ public class DishManager implements Service<MainDish>{
 
        mainDishDAO.delete(mainDish);
     }
+
+    public void deleteAll() {
+        List<MainDish> mainDishes = mainDishDAO.get(new AllDishes());
+        List<DishComponent> dishComponents = dishComponentDAO.get(new AllDishComponents());
+
+        for(MainDish md : mainDishes) {
+            mainDishDAO.delete(md);
+        }
+
+        for(DishComponent dc : dishComponents) {
+            dishComponentDAO.delete(dc);
+        }
+
+    }
 }
