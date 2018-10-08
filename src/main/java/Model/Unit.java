@@ -4,6 +4,10 @@ public class Unit {
     private String name;
     private Integer id;
 
+    public Unit(Integer id) {
+        this.id = id;
+    }
+
     public Unit(String name) {
         this.name = name;
     }
