@@ -38,9 +38,14 @@ public class ApiDishServlet extends HttpServlet {
             json = mapper.mapToJson(mainDish);
         }
 
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(json);
+        if(!json.equals("null")) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.setContentType("text/html; charset=UTF-8");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(json);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
 
     }
@@ -48,26 +53,16 @@ public class ApiDishServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Gson gson = new Gson();
-        String json = req.getReader().readLine();
         DishManager dishManager = new DishManager();
 
-        MainDish mainDish = gson.fromJson(json, MainDish.class);
-        dishManager.create(mainDish);
-
-        resp.setStatus(HttpServletResponse.SC_OK);
 
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Gson gson = new Gson();
-        String json = req.getReader().readLine();
         DishManager dishManager = new DishManager();
 
-        MainDish mainDish = gson.fromJson(json, MainDish.class);
-        dishManager.edit(mainDish);
-
-        resp.setStatus(HttpServletResponse.SC_OK);
 
     }
 
