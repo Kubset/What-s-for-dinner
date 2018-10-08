@@ -45,7 +45,7 @@ class ComponentManagerTest {
         assertEquals(expectedComponents, actualComponents);
 
         soupManager.delete(soup);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
     }
 
     @Test
@@ -71,7 +71,7 @@ class ComponentManagerTest {
         assertEquals(expectedComponents, actualComponents);
 
         dishManager.delete(mainDish);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
     }
 
     @Test
@@ -97,7 +97,7 @@ class ComponentManagerTest {
         assertEquals(0, actualComponents.size());
 
         soupManager.delete(soup);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
     }
 
     @Test
@@ -116,7 +116,7 @@ class ComponentManagerTest {
         assertEquals(0, actualComponents.size());
 
         dishManager.delete(mainDish);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
 
 
     }
@@ -136,7 +136,7 @@ class ComponentManagerTest {
         assertEquals(expectedComponents, actualComponents);
 
         soupManager.delete(soup);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
 
 
     }
@@ -156,7 +156,7 @@ class ComponentManagerTest {
         assertEquals(expectedComponents, actualComponents);
 
         dishManager.delete(mainDish);
-        componentManager.deleteAllComponents();
+        componentManager.deleteAll();
 
     }
 
