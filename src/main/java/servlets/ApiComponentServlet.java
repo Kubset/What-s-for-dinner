@@ -83,6 +83,20 @@ public class ApiComponentServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
+        ComponentManager componentManager = new ComponentManager();
+
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            int id = Integer.parseInt(URL[3]);
+            componentManager.delete(new Component(id));
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else if(URL.length == 3) {
+            componentManager.deleteAll();
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
     }
 }
 
