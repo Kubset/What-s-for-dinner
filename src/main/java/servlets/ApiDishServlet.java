@@ -52,9 +52,18 @@ public class ApiDishServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
         Gson gson = new Gson();
         DishManager dishManager = new DishManager();
 
+        if(URL.length == 3) {
+            String json = req.getReader().readLine();
+            MainDish mainDish = gson.fromJson(json, MainDish.class);
+            dishManager.create(mainDish);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
     }
 
