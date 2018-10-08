@@ -56,6 +56,14 @@ public class ApiSoupServlet extends HttpServlet {
         Gson gson = new Gson();
         SoupManager soupManager = new SoupManager();
 
+        if(URL.length == 3) {
+            String json = req.getReader().readLine();
+            Soup soup = gson.fromJson(json, Soup.class);
+            soupManager.create(soup);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
     }
 
