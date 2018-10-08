@@ -19,7 +19,7 @@ https://whats-for-dinner-app.herokuapp.com/
 #### Database
 ![Alt text](diagrams/ERD/ERD.png?raw=true "ERD")
 - all tables has one sequence
-- favourite field is for future use
+- favourite field will be used in next version
 #### Java classes
 ##### dependency between packages
 ![Alt text](diagrams/packages_dependecy.png?raw=true "ERD")
@@ -71,3 +71,7 @@ You should fill data in database.properties in src/TEST/resources/database.prope
 - Make more responsible tables, now long recipe do not cover Components column
 - Make more responsible navbar, now its possible to use application on mobile devices
 - Make Tests for back-end (services, DAO), now tests are performed on own local database
+
+##### Upcoming features
+- add accounts system
+- refactor of models, use builder design pattern
