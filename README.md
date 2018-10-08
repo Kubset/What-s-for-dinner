@@ -17,10 +17,13 @@ https://whats-for-dinner-app.herokuapp.com/
 
 ## Architecture
 #### Database
-![Alt text](diagrams/ERD.png?raw=true "ERD")
+![Alt text](diagrams/ERD/ERD.png?raw=true "ERD")
 - all tables has one sequence
 - favourite field is for future use
-
+#### Java classes
+##### dependency between packages
+![Alt text](diagrams/packages_dependecy.png?raw=true "ERD")
+- UML diagrams are present in diagrams/UML directory
 ## Used technologies/skills
 - Java 8
 - Servlets
