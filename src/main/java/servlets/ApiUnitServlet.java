@@ -88,6 +88,19 @@ public class ApiUnitServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
+        UnitManager unitManager = new UnitManager();
+
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            int id = Integer.parseInt(URL[3]);
+            unitManager.delete(new Unit(id));
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else if(URL.length == 3) {
+            unitManager.deleteAll();
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 }
 
