@@ -45,6 +45,21 @@ public class ApiComponentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
+
+        Gson gson = new Gson();
+        ComponentManager componentManager = new ComponentManager();
+        Mapper<Component> mapper = new ComponentMapper();
+
+        if(URL.length == 3) {
+            String json = req.getReader().readLine();
+            Component component = gson.fromJson(json, Component.class);
+            componentManager.create(component);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
     }
 
     @Override
