@@ -73,7 +73,17 @@ public class ApiSoupServlet extends HttpServlet {
 
         Gson gson = new Gson();
         SoupManager soupManager = new SoupManager();
+        Mapper<Soup> mapper = new SoupMapper();
 
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            String json = req.getReader().readLine();
+            Soup soup = gson.fromJson(json, Soup.class);
+            soup.setId(Integer.parseInt(URL[3]));
+            soupManager.edit(soup);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
 
     }
