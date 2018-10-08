@@ -96,6 +96,9 @@ public class ApiDishServlet extends HttpServlet {
             int id = Integer.valueOf(URL[3]);
             dishManager.delete(new MainDish(id));
             resp.setStatus(HttpServletResponse.SC_OK);
+        } else if(URL.length == 3) {
+            dishManager.deleteAll();
+            resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
