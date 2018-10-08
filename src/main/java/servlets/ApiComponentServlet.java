@@ -64,6 +64,21 @@ public class ApiComponentServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
+
+        Gson gson = new Gson();
+        ComponentManager componentManager = new ComponentManager();
+        Mapper<Component> mapper = new ComponentMapper();
+
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            String json = req.getReader().readLine();
+            Component component = gson.fromJson(json, Component.class);
+            component.setId(Integer.parseInt(URL[3]));
+            componentManager.edit(component);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 
     @Override
