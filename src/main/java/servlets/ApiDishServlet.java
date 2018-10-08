@@ -69,9 +69,21 @@ public class ApiDishServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String[] URL = req.getRequestURI().toString().split("/");
+
         Gson gson = new Gson();
         DishManager dishManager = new DishManager();
+        Mapper<MainDish> mapper = new MainDishMapper();
 
+        if(URL.length == 4 && URL[3].matches("\\d+")) {
+            String json = req.getReader().readLine();
+            MainDish mainDish = gson.fromJson(json, MainDish.class);
+            mainDish.setId(Integer.parseInt(URL[3]));
+            dishManager.edit(mainDish);
+            resp.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
 
     }
 
